@@ -1,0 +1,8 @@
+{
+  "schema": "./src/config/db/schema.ts",
+  "out": "./db/migrations",
+  "driver": "mysql2",
+  "dbCredentials": {
+    "connectionString": "mysql://root:30122002@localhost:3306/app_db"
+  }
+}
