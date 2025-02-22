@@ -49,7 +49,7 @@ const SectionBlogsHero = () => {
                 <Image
                   src={blog.coverImage}
                   alt="cover image"
-                  className="h-full w-full object-cover object-center"
+                  className="size-full object-cover object-center"
                   width={1000}
                   height={1000}
                 />

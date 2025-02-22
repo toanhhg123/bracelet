@@ -13,7 +13,7 @@ const Language = () => {
       <Menu as="div" className="relative inline-block">
         <Menu.Button className="flex items-center gap-1">
           <span>{language}</span>
-          <span className="flex h-4 w-4 items-center justify-center rounded-full border border-white">
+          <span className="flex size-4 items-center justify-center rounded-full border border-white">
             <MdKeyboardArrowDown className="text-sm" />
           </span>
         </Menu.Button>

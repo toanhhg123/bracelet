@@ -23,12 +23,12 @@ const renderProduct = (item: ProductType) => {
 
   return (
     <div key={shoeName} className="flex py-5 last:pb-0">
-      <div className="relative h-24 w-24 shrink-0 overflow-hidden rounded-xl md:h-40 md:w-40">
+      <div className="relative size-24 shrink-0 overflow-hidden rounded-xl md:size-40">
         <Image
           fill
           src={coverImage}
           alt={shoeName}
-          className="h-full w-full object-contain object-center"
+          className="size-full object-contain object-center"
         />
         <Link className="absolute inset-0" href={`/products/${slug}`} />
       </div>
@@ -78,7 +78,7 @@ const CartPage = () => {
         <hr className="my-10 border-neutral-300 xl:my-12" />
 
         <div className="flex flex-col lg:flex-row">
-          <div className="w-full divide-y divide-neutral-300 lg:w-[60%] xl:w-[55%]">
+          <div className="w-full divide-y divide-neutral-300 lg:w-3/5 xl:w-[55%]">
             {shoes.slice(0, 3).map((item) => renderProduct(item))}
           </div>
           <div className="my-10 shrink-0 border-t border-neutral-300 lg:mx-10 lg:my-0 lg:border-l lg:border-t-0 xl:mx-16 2xl:mx-20" />

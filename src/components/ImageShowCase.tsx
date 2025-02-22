@@ -22,7 +22,7 @@ const ImageShowCase: FC<ImageShowCaseProps> = ({ shots }) => {
         <Image
           src={pathOr('', [activeImageIndex], shots)}
           alt="shoe image"
-          className="h-full w-full object-cover object-center"
+          className="size-full object-cover object-center"
         />
       </div>
       <div className="grid grid-cols-4 gap-3">
@@ -34,14 +34,14 @@ const ImageShowCase: FC<ImageShowCaseProps> = ({ shots }) => {
             } h-[100px] overflow-hidden rounded-lg`}
           >
             <button
-              className="h-full w-full"
+              className="size-full"
               type="button"
               onClick={() => setActiveImageIndex(index)}
             >
               <Image
                 src={shot}
                 alt="shoe image"
-                className="h-full w-full object-cover object-center"
+                className="size-full object-cover object-center"
               />
             </button>
           </div>

@@ -1,7 +1,6 @@
 import "@/styles/global.css";
 
 import type { Metadata } from "next";
-import type React from "react";
 import { Suspense } from "react";
 import { Toaster } from "react-hot-toast";
 

@@ -11,7 +11,7 @@ const FooterBanner = () => {
       <Heading className="mb-0" isMain isCenter>
         {footerBannerData.heading}
       </Heading>
-      <p className="mx-auto w-[80%] text-center md:w-[50%]">
+      <p className="mx-auto w-4/5 text-center md:w-[50%]">
         {footerBannerData.description}
       </p>
       <div className="mt-10 flex items-center justify-center">

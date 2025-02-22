@@ -18,7 +18,7 @@ const SectionBlogHero: FC<SectionBlogHeroProps> = ({
     <div className="mb-10">
       <div className="mb-16 space-y-5">
         <h1
-          className="mx-auto w-[80%] text-center text-2xl font-medium md:text-[40px] lg:text-[60px]"
+          className="mx-auto w-4/5 text-center text-2xl font-medium md:text-[40px] lg:text-[60px]"
           style={{ lineHeight: '1.2em' }}
         >
           {title}

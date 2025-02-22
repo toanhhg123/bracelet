@@ -32,6 +32,7 @@ export const LINKS = {
   CART: "/cart",
   USER_MANAGER: "/user-manager",
   ORDER_MANAGER: "/order-manager",
+  NOT_FOUND: "/404",
 };
 
 export const ALL_PAGES = Object.values(LINKS).filter(
@@ -40,4 +41,8 @@ export const ALL_PAGES = Object.values(LINKS).filter(
 
 export const IMAGES = {
   NO_IMAGE: "/uploads/no-image.png",
+};
+
+export const renderUploadImage = (image: string) => {
+  return image.startsWith("http") ? image : `/uploads/${image}`;
 };

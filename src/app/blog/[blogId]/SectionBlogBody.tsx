@@ -42,7 +42,7 @@ const SectionBlogBody: FC<SectionBlogBodyProps> = ({ blogData }) => {
               width={1000}
               height={1000}
               alt="mid section image"
-              className="h-full w-full object-cover object-center"
+              className="size-full object-cover object-center"
             />
           </div>
         </div>

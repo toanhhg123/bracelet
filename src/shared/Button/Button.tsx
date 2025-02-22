@@ -1,9 +1,8 @@
-'use client';
+"use client";
 
-import type { Route } from 'next';
-import Link from 'next/link';
-import type { ButtonHTMLAttributes, FC } from 'react';
-import React from 'react';
+import type { Route } from "next";
+import Link from "next/link";
+import type { ButtonHTMLAttributes, FC } from "react";
 
 export interface ButtonProps {
   className?: string;
@@ -12,17 +11,17 @@ export interface ButtonProps {
   fontSize?: string;
   loading?: boolean;
   disabled?: boolean;
-  type?: ButtonHTMLAttributes<HTMLButtonElement>['type'];
+  type?: ButtonHTMLAttributes<HTMLButtonElement>["type"];
   href?: Route;
   onClick?: () => void;
   children?: React.ReactNode;
 }
 
 const Button: FC<ButtonProps> = ({
-  className = 'text-neutral-200 disabled:cursor-not-allowed',
-  translate = '',
-  sizeClass = 'py-3 px-4 sm:py-3.5 sm:px-6',
-  fontSize = 'text-sm sm:text-base font-medium',
+  className = "text-neutral-200 disabled:cursor-not-allowed",
+  translate = "",
+  sizeClass = "py-3 px-4 sm:py-3.5 sm:px-6",
+  fontSize = "text-sm sm:text-base font-medium",
   disabled = false,
   href,
   children,
@@ -34,8 +33,9 @@ const Button: FC<ButtonProps> = ({
 
   const renderLoading = () => {
     return (
+      // biome-ignore lint/a11y/noSvgWithoutTitle: <explanation>
       <svg
-        className="-ml-1 mr-3 h-5 w-5 animate-spin"
+        className="-ml-1 mr-3 size-5 animate-spin"
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
         viewBox="0 0 24 24"

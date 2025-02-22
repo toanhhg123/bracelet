@@ -56,7 +56,7 @@ const SectionProductHeader: FC<SectionProductHeaderProps> = ({
               <Image
                 src={nike_profile}
                 alt="nike_profile"
-                className="h-full w-full object-cover"
+                className="size-full object-cover"
               />
             </ButtonCircle3>
             <span className="font-medium">Nike</span>

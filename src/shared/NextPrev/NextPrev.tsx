@@ -40,7 +40,7 @@ const NextPrev: FC<NextPrevProps> = ({
         disabled={disablePrev}
         onMouseEnter={() => setFocus('left')}
       >
-        <ArrowLeftIcon className="h-5 w-5" />
+        <ArrowLeftIcon className="size-5" />
       </button>
       <button
         type="button"
@@ -57,7 +57,7 @@ const NextPrev: FC<NextPrevProps> = ({
         disabled={disableNext}
         onMouseEnter={() => setFocus('right')}
       >
-        <ArrowRightIcon className="h-5 w-5" />
+        <ArrowRightIcon className="size-5" />
       </button>
     </div>
   );

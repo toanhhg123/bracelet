@@ -41,12 +41,12 @@ const CheckoutPage = () => {
 
     return (
       <div key={shoeName} className="flex py-5 last:pb-0">
-        <div className="relative h-24 w-24 shrink-0 overflow-hidden rounded-xl md:h-40 md:w-40">
+        <div className="relative size-24 shrink-0 overflow-hidden rounded-xl md:size-40">
           <Image
             fill
             src={coverImage}
             alt={shoeName}
-            className="h-full w-full object-contain object-center"
+            className="size-full object-contain object-center"
           />
           <Link className="absolute inset-0" href={`/products/${slug}`} />
         </div>

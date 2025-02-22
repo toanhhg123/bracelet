@@ -70,7 +70,7 @@ const page = () => {
                 <Image
                   src={photo}
                   alt="instagram photo"
-                  className="h-full w-full object-cover object-center"
+                  className="size-full object-cover object-center"
                   width={1000}
                   height={1000}
                 />
@@ -81,7 +81,7 @@ const page = () => {
             <Image
               src={pathOr('', ['instagramPhotos', 4], contactSection)}
               alt="instagram photo"
-              className="h-full w-full object-cover object-center"
+              className="size-full object-cover object-center"
               width={1000}
               height={1000}
             />

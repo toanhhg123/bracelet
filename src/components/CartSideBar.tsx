@@ -36,12 +36,12 @@ const CartSideBar: React.FC<CartSideBarProps> = () => {
 
     return (
       <div key={shoeName} className="flex py-5 last:pb-0">
-        <div className="relative h-24 w-24 shrink-0 overflow-hidden rounded-xl">
+        <div className="relative size-24 shrink-0 overflow-hidden rounded-xl">
           <Image
             fill
             src={coverImage}
             alt={shoeName}
-            className="h-full w-full object-contain object-center"
+            className="size-full object-contain object-center"
           />
           <Link
             onClick={handleCloseMenu}

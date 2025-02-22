@@ -1,10 +1,10 @@
+import Link from "next/link";
+import React from "react";
+
 import { db } from "@/config/db";
 import { product } from "@/config/db/schema";
 import Button from "@/shared/Button/Button";
 import { IMAGES, LINKS } from "@/utils/AppConfig";
-import Link from "next/link";
-
-import React from "react";
 
 const Page = async () => {
   // Truy vấn danh sách sản phẩm từ cơ sở dữ liệu
@@ -14,7 +14,7 @@ const Page = async () => {
 
   return (
     <div className="container my-10">
-      <div className="mb-5 flex justify-between items-center">
+      <div className="mb-5 flex items-center justify-between">
         <div>
           <h3 className="text-lg font-semibold text-slate-800">
             Quản lí sản phẩm
@@ -24,14 +24,14 @@ const Page = async () => {
         {/* Nút thêm mới sản phẩm */}
         <Link
           href="/manager/product/create"
-          className="px-4 py-2 bg-primary text-white rounded"
+          className="rounded bg-primary px-4 py-2 text-white"
         >
           Thêm mới sản phẩm
         </Link>
       </div>
 
       <div>
-        <table className="w-full text-left table-auto min-w-max">
+        <table className="w-full min-w-max table-auto text-left">
           <thead>
             <tr className="border-b border-slate-300 bg-slate-50">
               <th className="p-4 text-sm font-normal leading-none text-slate-500">
@@ -60,9 +60,9 @@ const Page = async () => {
               return (
                 <tr key={product.id} className="border-b border-slate-200">
                   {/* Cột ảnh sản phẩm */}
-                  <td className="p-4 relative">
+                  <td className="relative p-4">
                     <div
-                      className="w-16 h-16 bg-gray-200 rounded flex items-center justify-center"
+                      className="bg-gray-200 flex size-16 items-center justify-center rounded"
                       style={{
                         backgroundImage: product.coverImage
                           ? `url(${product.coverImage})`
@@ -74,7 +74,7 @@ const Page = async () => {
                       <Link
                         href={LINKS.EDIT_PRODUCT(product.id)}
                         type="button"
-                        className="px-2 py-1  text-xs rounded text-blue-500 absolute bottom-1 right-4"
+                        className="absolute bottom-1  right-4 rounded px-2 py-1 text-xs text-blue-500"
                       >
                         Cập nhật ảnh
                       </Link>
@@ -105,7 +105,7 @@ const Page = async () => {
                     >
                       Sửa
                     </Link>
-                    <Button className="text-red-500 hover:text-red-700 ml-2">
+                    <Button className="ml-2 text-red-500 hover:text-red-700">
                       Xóa
                     </Button>
                   </td>

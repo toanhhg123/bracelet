@@ -16,7 +16,7 @@ const Accordion = ({ question, answer, wfull }: any) => {
               viewBox="0 0 24 24"
               stroke-width="1.5"
               stroke="currentColor"
-              className="block h-5 w-5 group-open:hidden"
+              className="block size-5 group-open:hidden"
             >
               <path
                 stroke-linecap="round"
@@ -30,7 +30,7 @@ const Accordion = ({ question, answer, wfull }: any) => {
               viewBox="0 0 24 24"
               stroke-width="1.5"
               stroke="currentColor"
-              className="hidden h-5 w-5 group-open:block"
+              className="hidden size-5 group-open:block"
             >
               <path
                 stroke-linecap="round"

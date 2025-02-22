@@ -65,7 +65,7 @@ const BannerCard: FC<BannerCardProps> = ({
         <Image
           src={details.coverImage}
           alt="cover image"
-          className="h-full w-full object-cover"
+          className="size-full object-cover"
         />
       </div>
     </div>

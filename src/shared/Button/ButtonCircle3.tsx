@@ -1,5 +1,4 @@
 import type { ButtonHTMLAttributes } from "react";
-import type React from "react";
 
 export interface ButtonCircleProps
   extends ButtonHTMLAttributes<HTMLButtonElement> {

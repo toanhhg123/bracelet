@@ -38,7 +38,7 @@ const BlogCard: FC<BlogCardProps> = ({
           <Image
             src={coverImage}
             alt="blog cover"
-            className="h-full w-full object-cover object-center"
+            className="size-full object-cover object-center"
             width={1000}
             height={1000}
           />

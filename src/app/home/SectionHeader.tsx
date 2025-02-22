@@ -20,7 +20,7 @@ const SectionHeader = () => {
           >
             {headerSection.heading}
           </h1>
-          <p className="my-10 w-[80%] text-neutral-500">
+          <p className="my-10 w-4/5 text-neutral-500">
             {headerSection.description}
           </p>
           <ButtonPrimary sizeClass="px-5 py-4">View Product</ButtonPrimary>

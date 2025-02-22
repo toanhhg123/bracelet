@@ -36,7 +36,7 @@ const ProductCard: FC<ProductCardProps> = ({
           <Image
             src={product.coverImage}
             alt={`${product.name} cover photo`}
-            className="h-full w-full object-cover object-bottom"
+            className="size-full object-cover object-bottom"
           />
         </Link>
       </div>

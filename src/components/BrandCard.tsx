@@ -30,11 +30,11 @@ const BrandCard: FC<BrandCardProps> = ({
     <div className="rounded-2xl border border-neutral-300 p-3">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <div className="h-20 w-20 overflow-hidden rounded-lg">
+          <div className="size-20 overflow-hidden rounded-lg">
             <Image
               src={logo}
               alt="logo"
-              className="h-full w-full object-cover object-center"
+              className="size-full object-cover object-center"
             />
           </div>
           <div>
@@ -69,7 +69,7 @@ const BrandCard: FC<BrandCardProps> = ({
             <Image
               src={shoe}
               alt="shoe"
-              className="h-full w-full object-cover object-bottom"
+              className="size-full object-cover object-bottom"
             />
           </div>
         ))}

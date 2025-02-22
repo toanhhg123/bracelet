@@ -4,11 +4,11 @@ import { RiSearch2Line } from "react-icons/ri";
 
 import Input from "@/shared/Input/Input";
 import Logo from "@/shared/Logo/Logo";
+import { LINKS } from "@/utils/AppConfig";
 
 import CartSideBar from "../CartSideBar";
 import MenuBar from "./MenuBar";
 import UserDropdown from "./UserDropdown";
-import { LINKS } from "@/utils/AppConfig";
 
 const MainNav = () => {
   return (
@@ -16,7 +16,7 @@ const MainNav = () => {
       <div className="flex-1 lg:hidden">
         <MenuBar />
       </div>
-      <div className="flex items-center gap-5 lg:basis-[60%]">
+      <div className="flex items-center gap-5 lg:basis-3/5">
         <Logo />
         <div className="hidden w-full max-w-2xl items-center gap-5 rounded-full border border-neutral-300 py-1 pr-3 lg:flex">
           <Input
