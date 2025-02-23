@@ -2,6 +2,7 @@ import Link from "next/link";
 import { FaRegBell } from "react-icons/fa6";
 import { RiSearch2Line } from "react-icons/ri";
 
+import { getUser } from "@/app/signup/action";
 import Input from "@/shared/Input/Input";
 import Logo from "@/shared/Logo/Logo";
 import { LINKS } from "@/utils/AppConfig";
@@ -10,7 +11,8 @@ import CartSideBar from "../CartSideBar";
 import MenuBar from "./MenuBar";
 import UserDropdown from "./UserDropdown";
 
-const MainNav = () => {
+const MainNav = async () => {
+  const user = await getUser();
   return (
     <div className="container flex items-center justify-between py-4">
       <div className="flex-1 lg:hidden">
@@ -37,10 +39,13 @@ const MainNav = () => {
         <div className="flex items-center divide-x divide-neutral-300">
           <CartSideBar />
           <div className="flex items-center gap-2 pl-5">
-            <UserDropdown />
-            <Link href={LINKS.LOGIN} className="!hidden text-sm lg:block">
-              Đăng Nhập
-            </Link>
+            {user ? (
+              <UserDropdown />
+            ) : (
+              <Link href={LINKS.LOGIN} className="text-sm lg:block">
+                Đăng Nhập
+              </Link>
+            )}
           </div>
         </div>
       </div>

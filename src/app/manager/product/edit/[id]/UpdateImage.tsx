@@ -8,13 +8,13 @@ import Image from "next/image";
 import React, { type FormEvent, useState, useTransition } from "react";
 import toast from "react-hot-toast";
 
+import type { Product } from "@/config/db/schema";
 import Button from "@/shared/Button/Button";
 import {
   renderUploadImage,
   type SUBMIT_RESPONSE,
   TOAST_TYPE,
 } from "@/utils/AppConfig";
-import type { Product } from "@/config/db/schema";
 
 type Props = {
   onUpload: (

@@ -53,24 +53,24 @@ const Page = async () => {
             </tr>
           </thead>
           <tbody>
-            {products.map((product) => {
-              product.coverImage = product.coverImage
-                ? renderUploadImage(product.coverImage)
+            {products.map((p) => {
+              const image = p.coverImage
+                ? renderUploadImage(p.coverImage)
                 : IMAGES.NO_IMAGE;
               return (
-                <tr key={product.id} className="border-b border-slate-200">
+                <tr key={p.id} className="border-b border-slate-200">
                   {/* Cột ảnh sản phẩm */}
                   <td className="relative p-4">
                     <div
                       className="bg-gray-200 flex size-16 items-center justify-center rounded"
                       style={{
-                        backgroundImage: `url(${product.coverImage})`,
+                        backgroundImage: `url(${image})`,
                         backgroundSize: "cover",
                         backgroundPosition: "center",
                       }}
                     >
                       <Link
-                        href={LINKS.EDIT_PRODUCT(product.id)}
+                        href={LINKS.EDIT_PRODUCT(p.id)}
                         type="button"
                         className="absolute bottom-1  right-4 rounded px-2 py-1 text-xs text-blue-500"
                       >
@@ -79,26 +79,22 @@ const Page = async () => {
                     </div>
                   </td>
                   {/* Cột tên sản phẩm */}
-                  <td className="p-4 text-sm text-slate-800">{product.name}</td>
+                  <td className="p-4 text-sm text-slate-800">{p.name}</td>
                   {/* Cột giá hiện tại */}
                   <td className="p-4 text-sm text-slate-800">
                     {new Intl.NumberFormat("vi-VN", {
                       style: "currency",
                       currency: "VND",
-                    }).format(product.currentPrice)}
+                    }).format(p.currentPrice)}
                   </td>
                   {/* Cột số lượng đánh giá */}
-                  <td className="p-4 text-sm text-slate-800">
-                    {product.reviews}
-                  </td>
+                  <td className="p-4 text-sm text-slate-800">{p.reviews}</td>
                   {/* Cột số lượng đã bán */}
-                  <td className="p-4 text-sm text-slate-800">
-                    {product.piecesSold}
-                  </td>
+                  <td className="p-4 text-sm text-slate-800">{p.piecesSold}</td>
                   {/* Cột hành động */}
                   <td className="p-4 text-sm text-slate-800">
                     <Link
-                      href={LINKS.EDIT_PRODUCT(product.slug)}
+                      href={LINKS.EDIT_PRODUCT(p.slug)}
                       className="text-blue-500 hover:text-blue-700"
                     >
                       Sửa

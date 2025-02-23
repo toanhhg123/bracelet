@@ -1,7 +1,5 @@
-import type { StaticImageData } from "next/image";
 import Image from "next/image";
 import type { FC } from "react";
-import React from "react";
 import { BsBag } from "react-icons/bs";
 import { GoDotFill } from "react-icons/go";
 import { LuInfo } from "react-icons/lu";

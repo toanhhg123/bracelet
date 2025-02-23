@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Fragment } from "react";
 
+import { logout } from "@/app/signup/action";
 import avatar from "@/images/avatar.png";
 import { LINKS } from "@/utils/AppConfig";
 
@@ -28,10 +29,6 @@ const options = [
   {
     name: "Quản lí đơn hàng",
     url: LINKS.ORDER_MANAGER,
-  },
-  {
-    name: "Đăng xuất",
-    url: LINKS.LOGOUT,
   },
 ];
 
@@ -66,6 +63,15 @@ const UserDropdown = () => {
                 {item.name}
               </Link>
             ))}
+
+            <form action={logout}>
+              <button
+                type="submit"
+                className="w-full px-3 py-1 text-left text-white focus:outline-none"
+              >
+                Đăng xuất
+              </button>
+            </form>
           </div>
         </Menu.Items>
       </Transition>

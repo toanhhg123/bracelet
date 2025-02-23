@@ -2,7 +2,6 @@ import React from "react";
 
 import CountDownTimer from "@/components/CountDownTimer";
 import ProductSlider from "@/components/ProductSlider";
-
 import { db } from "@/config/db";
 import { product } from "@/config/db/schema";
 

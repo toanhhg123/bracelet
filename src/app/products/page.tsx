@@ -3,11 +3,11 @@ import { MdOutlineFilterList, MdSearch } from "react-icons/md";
 
 import ProductCard from "@/components/ProductCard";
 import SidebarFilters from "@/components/SideBarFilter";
+import { db } from "@/config/db";
+import { product } from "@/config/db/schema";
 import ButtonSecondary from "@/shared/Button/ButtonSecondary";
 import Input from "@/shared/Input/Input";
 
-import { db } from "@/config/db";
-import { product } from "@/config/db/schema";
 import SectionBrands from "../home/SectionBrands";
 
 const page = async () => {

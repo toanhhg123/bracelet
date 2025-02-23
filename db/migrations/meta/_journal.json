@@ -8,6 +8,34 @@
       "when": 1740289473602,
       "tag": "0000_pink_pyro",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1740303620060,
+      "tag": "0001_stale_micromacro",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1740303683859,
+      "tag": "0002_pale_felicia_hardy",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1740303790684,
+      "tag": "0003_heavy_champions",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1740303806339,
+      "tag": "0004_bitter_saracen",
+      "breakpoints": true
     }
   ]
 }

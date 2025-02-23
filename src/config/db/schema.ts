@@ -6,11 +6,12 @@ import {
   mysqlTable,
   serial,
   text,
+  timestamp,
   varchar,
 } from "drizzle-orm/mysql-core";
 
 export const users = mysqlTable("users", {
-  id: serial("id").primaryKey(),
+  id: int("id").primaryKey().autoincrement(),
   name: varchar("name", { length: 255 }).notNull(),
   email: varchar("email", { length: 255 }).notNull().unique(),
   age: int("age"),
@@ -34,6 +35,20 @@ export const product = mysqlTable("product", {
   shots: json("shots"),
   overview: text("overview"),
   shipmentDetails: json("shipment_details"),
+});
+
+export const cart = mysqlTable("cart", {
+  id: serial("id").primaryKey(),
+  userId: int("user_id")
+    .notNull()
+    .references(() => users.id),
+  productId: int("product_id")
+    .notNull()
+    .references(() => product.id),
+  quantity: int("quantity").notNull().default(1),
+  totalPrice: float("total_price").notNull(),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").onUpdateNow(),
 });
 
 export type Product = typeof product.$inferSelect;

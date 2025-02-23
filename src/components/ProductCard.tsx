@@ -3,9 +3,10 @@ import Link from "next/link";
 import type { FC } from "react";
 import React from "react";
 
-import LikeButton from "./LikeButton";
 import type { Product } from "@/config/db/schema";
 import { formatCurrency, IMAGES, renderUploadImage } from "@/utils/AppConfig";
+
+import LikeButton from "./LikeButton";
 
 interface ProductCardProps {
   product: Product;

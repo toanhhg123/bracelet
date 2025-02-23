@@ -1,11 +1,11 @@
 "use server";
 
+import { eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 
 import { db } from "@/config/db";
 import { type Product, product } from "@/config/db/schema";
 import { LINKS, type SUBMIT_RESPONSE, TOAST_TYPE } from "@/utils/AppConfig";
-import { eq } from "drizzle-orm";
 
 export async function create(form: FormData): Promise<SUBMIT_RESPONSE> {
   const data = Object.fromEntries(form) as unknown as Product;

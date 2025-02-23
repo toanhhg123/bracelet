@@ -5,8 +5,8 @@ import { useRouter } from "next/navigation";
 import { useTransition } from "react";
 import toast from "react-hot-toast";
 
-import { LINKS, type SUBMIT_RESPONSE, TOAST_TYPE } from "@/utils/AppConfig";
 import type { Product } from "@/config/db/schema";
+import { LINKS, type SUBMIT_RESPONSE, TOAST_TYPE } from "@/utils/AppConfig";
 
 type Props = {
   handleSubmit: (
@@ -18,7 +18,6 @@ type Props = {
 };
 
 const Form = ({ handleSubmit, product, type = "CREATE" }: Props) => {
-  console.log(product);
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
 

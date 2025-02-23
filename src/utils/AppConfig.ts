@@ -21,6 +21,7 @@ export const TOAST_TYPE = {
 };
 
 export const LINKS = {
+  HOME: "/",
   MANAGER_PRODUCT: "/manager/product",
   CREATE_PRODUCT: "/manager/product/create",
   EDIT_PRODUCT: (id: number | string) => `/manager/product/edit/${id}`,

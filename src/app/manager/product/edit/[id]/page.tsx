@@ -1,9 +1,11 @@
-import { db } from "@/config/db";
-import { type Product, product } from "@/config/db/schema";
-import { LINKS, type SUBMIT_RESPONSE, TOAST_TYPE } from "@/utils/AppConfig";
 import { eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { notFound } from "next/navigation";
+
+import { db } from "@/config/db";
+import { type Product, product } from "@/config/db/schema";
+import { LINKS, type SUBMIT_RESPONSE, TOAST_TYPE } from "@/utils/AppConfig";
+
 import { update } from "../../create/submit";
 import Form from "../../form";
 import UpdateImage from "./UpdateImage";
@@ -34,7 +36,7 @@ const page = async ({ params }: Props) => {
   const handleUploadMainImage = async (
     file: File,
     isCoverImage: boolean,
-    productDB: Product
+    _productDB: Product
   ) => {
     "use server";
 
@@ -69,7 +71,7 @@ const page = async ({ params }: Props) => {
   const onDelete = async (
     url: string,
     isCoverImage: boolean,
-    productDB: Product
+    _productDB: Product
   ) => {
     "use server";
 

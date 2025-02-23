@@ -1,10 +1,11 @@
+import { eq } from "drizzle-orm";
+import { notFound } from "next/navigation";
 import { pathOr } from "ramda";
 
 import { db } from "@/config/db";
 import { product } from "@/config/db/schema";
 import { IMAGES, renderUploadImage } from "@/utils/AppConfig";
-import { eq } from "drizzle-orm";
-import { notFound } from "next/navigation";
+
 import SectionMoreProducts from "./SectionMoreProducts";
 import SectionNavigation from "./SectionNavigation";
 import SectionProductHeader from "./SectionProductHeader";

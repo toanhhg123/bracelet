@@ -1,8 +1,8 @@
 "use client";
 
+import type { Product } from "@/config/db/schema";
 import Slider from "@/shared/Slider/Slider";
 
-import type { Product } from "@/config/db/schema";
 import ProductCard from "./ProductCard";
 
 const ProductSlider = ({ data = [] }: { data?: Product[] }) => {

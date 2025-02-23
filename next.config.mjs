@@ -7,13 +7,9 @@ const bundleAnalyzer = withBundleAnalyzer({
 
 /** @type {import('next').NextConfig} */
 export default bundleAnalyzer({
-  experimental: {
-    serverActions: true,
-  },
   eslint: {
     dirs: ['.'],
   },
-  swcMinify: false,
   images: {
     remotePatterns: [
       {

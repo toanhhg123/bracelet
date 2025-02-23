@@ -1,12 +1,10 @@
-import React from "react";
-
 import Filter from "@/components/Filter";
 import ProductCard from "@/components/ProductCard";
-import { productsSection, shoes } from "@/data/content";
-import ButtonPrimary from "@/shared/Button/ButtonPrimary";
-import Heading from "@/shared/Heading/Heading";
 import { db } from "@/config/db";
 import { product } from "@/config/db/schema";
+import { productsSection } from "@/data/content";
+import ButtonPrimary from "@/shared/Button/ButtonPrimary";
+import Heading from "@/shared/Heading/Heading";
 
 const SectionProducts = async () => {
   const products = await db.select().from(product).limit(12);
@@ -19,12 +17,8 @@ const SectionProducts = async () => {
       <Filter />
 
       <div className="grid gap-7 md:grid-cols-2 lg:grid-cols-4">
-        {products.map((product) => (
-          <ProductCard
-            key={product.id}
-            product={product}
-            className="border-neutral-300"
-          />
+        {products.map((p) => (
+          <ProductCard key={p.id} product={p} className="border-neutral-300" />
         ))}
       </div>
 
