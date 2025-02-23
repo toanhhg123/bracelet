@@ -1,8 +1,10 @@
 import { pathOr } from "ramda";
-import React from "react";
 
-import { shoes } from "@/data/content";
-
+import { db } from "@/config/db";
+import { product } from "@/config/db/schema";
+import { IMAGES, renderUploadImage } from "@/utils/AppConfig";
+import { eq } from "drizzle-orm";
+import { notFound } from "next/navigation";
 import SectionMoreProducts from "./SectionMoreProducts";
 import SectionNavigation from "./SectionNavigation";
 import SectionProductHeader from "./SectionProductHeader";
@@ -12,14 +14,37 @@ type Props = {
   params: Promise<{ productId: string }>;
 };
 
-const getProductData = async (id: string) => {
-  const filteredDestination = shoes.find((item) => item.slug === id);
-  return filteredDestination;
+const getProductData = async (slug: string) => {
+  const productDB = await db
+    .select()
+    .from(product)
+    .where(eq(product.slug, slug))
+    .limit(1);
+  return productDB[0];
 };
 
 const SingleProductPage = async (props: Props) => {
   const { productId } = await props.params;
   const selectedProduct = await getProductData(productId);
+
+  if (!selectedProduct) {
+    return notFound();
+  }
+
+  selectedProduct.coverImage = selectedProduct.coverImage
+    ? renderUploadImage(selectedProduct.coverImage)
+    : IMAGES.NO_IMAGE;
+
+  selectedProduct.shots = selectedProduct.shots
+    ? (selectedProduct.shots as string[]).map((shot: string) =>
+        renderUploadImage(shot)
+      )
+    : [];
+
+  selectedProduct.shots = [
+    selectedProduct.coverImage,
+    ...(selectedProduct.shots as string[]),
+  ];
 
   return (
     <div className="container">

@@ -1,16 +1,18 @@
-import React from 'react';
-import { LuFilter } from 'react-icons/lu';
-import { MdOutlineFilterList, MdSearch } from 'react-icons/md';
+import { LuFilter } from "react-icons/lu";
+import { MdOutlineFilterList, MdSearch } from "react-icons/md";
 
-import ProductCard from '@/components/ProductCard';
-import SidebarFilters from '@/components/SideBarFilter';
-import { shoes } from '@/data/content';
-import ButtonSecondary from '@/shared/Button/ButtonSecondary';
-import Input from '@/shared/Input/Input';
+import ProductCard from "@/components/ProductCard";
+import SidebarFilters from "@/components/SideBarFilter";
+import ButtonSecondary from "@/shared/Button/ButtonSecondary";
+import Input from "@/shared/Input/Input";
 
-import SectionBrands from '../home/SectionBrands';
+import { db } from "@/config/db";
+import { product } from "@/config/db/schema";
+import SectionBrands from "../home/SectionBrands";
 
-const page = () => {
+const page = async () => {
+  const products = await db.select().from(product).limit(12);
+
   return (
     <div className="">
       <div className="container relative flex flex-col lg:flex-row" id="body">
@@ -42,7 +44,7 @@ const page = () => {
             </div>
           </div>
           <div className="grid flex-1 gap-x-8 gap-y-10 sm:grid-cols-2 xl:grid-cols-3 ">
-            {shoes.map((item) => (
+            {products.map((item) => (
               <ProductCard showPrevPrice product={item} key={item.slug} />
             ))}
           </div>

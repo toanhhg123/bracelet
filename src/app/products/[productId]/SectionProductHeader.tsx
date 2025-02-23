@@ -1,24 +1,24 @@
-import type { StaticImageData } from 'next/image';
-import Image from 'next/image';
-import type { FC } from 'react';
-import React from 'react';
-import { BsBag } from 'react-icons/bs';
-import { GoDotFill } from 'react-icons/go';
-import { LuInfo } from 'react-icons/lu';
-import { MdStar } from 'react-icons/md';
-import { PiSealCheckFill } from 'react-icons/pi';
+import type { StaticImageData } from "next/image";
+import Image from "next/image";
+import type { FC } from "react";
+import React from "react";
+import { BsBag } from "react-icons/bs";
+import { GoDotFill } from "react-icons/go";
+import { LuInfo } from "react-icons/lu";
+import { MdStar } from "react-icons/md";
+import { PiSealCheckFill } from "react-icons/pi";
 
-import ImageShowCase from '@/components/ImageShowCase';
-import ShoeSizeButton from '@/components/ShoeSizeButton';
-import { shoeSizes } from '@/data/content';
-import nike_profile from '@/images/nike_profile.jpg';
-import ButtonCircle3 from '@/shared/Button/ButtonCircle3';
-import ButtonPrimary from '@/shared/Button/ButtonPrimary';
-import ButtonSecondary from '@/shared/Button/ButtonSecondary';
-import Heading from '@/shared/Heading/Heading';
+import ImageShowCase from "@/components/ImageShowCase";
+import ShoeSizeButton from "@/components/ShoeSizeButton";
+import { shoeSizes } from "@/data/content";
+import nike_profile from "@/images/nike_profile.jpg";
+import ButtonCircle3 from "@/shared/Button/ButtonCircle3";
+import ButtonPrimary from "@/shared/Button/ButtonPrimary";
+import ButtonSecondary from "@/shared/Button/ButtonSecondary";
+import Heading from "@/shared/Heading/Heading";
 
 interface SectionProductHeaderProps {
-  shots: StaticImageData[];
+  shots: string[];
   shoeName: string;
   prevPrice: number;
   currentPrice: number;
@@ -66,7 +66,7 @@ const SectionProductHeader: FC<SectionProductHeaderProps> = ({
           <div className="flex items-center gap-1">
             <MdStar className="text-yellow-400" />
             <p className="text-sm">
-              {rating}{' '}
+              {rating}{" "}
               <span className="text-neutral-500">{`(${reviews} Reviews)`}</span>
             </p>
           </div>

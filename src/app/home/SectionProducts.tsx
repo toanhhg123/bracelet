@@ -5,8 +5,12 @@ import ProductCard from "@/components/ProductCard";
 import { productsSection, shoes } from "@/data/content";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import Heading from "@/shared/Heading/Heading";
+import { db } from "@/config/db";
+import { product } from "@/config/db/schema";
 
-const SectionProducts = () => {
+const SectionProducts = async () => {
+  const products = await db.select().from(product).limit(12);
+
   return (
     <div className="container">
       <Heading isCenter isMain desc={productsSection.description}>
@@ -15,10 +19,10 @@ const SectionProducts = () => {
       <Filter />
 
       <div className="grid gap-7 md:grid-cols-2 lg:grid-cols-4">
-        {shoes.map((shoe) => (
+        {products.map((product) => (
           <ProductCard
-            key={shoe.name}
-            product={shoe}
+            key={product.id}
+            product={product}
             className="border-neutral-300"
           />
         ))}

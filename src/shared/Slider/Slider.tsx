@@ -1,12 +1,14 @@
-import { AnimatePresence, motion, MotionConfig } from 'framer-motion';
-import type { ReactNode } from 'react';
-import React, { useEffect, useState } from 'react';
-import { useSwipeable } from 'react-swipeable';
-import { useWindowSize } from 'react-use';
+"use client";
 
-import NextBtn from '@/shared/NextPrev/NextBtn';
-import PrevBtn from '@/shared/NextPrev/PrevBtn';
-import { variants } from '@/utils/animationVariants';
+import { AnimatePresence, motion, MotionConfig } from "framer-motion";
+import type { ReactNode } from "react";
+import React, { useEffect, useState } from "react";
+import { useSwipeable } from "react-swipeable";
+import { useWindowSize } from "react-use";
+
+import NextBtn from "@/shared/NextPrev/NextBtn";
+import PrevBtn from "@/shared/NextPrev/PrevBtn";
+import { variants } from "@/utils/animationVariants";
 
 export interface MySliderProps<T> {
   className?: string;
@@ -29,11 +31,11 @@ export interface MySliderProps<T> {
 }
 
 export default function Slider<T>({
-  className = '',
+  className = "",
   itemPerRow = 5,
   data,
   renderItem = () => <div />,
-  arrowBtnClass = 'top-1/2 -translate-y-1/2',
+  arrowBtnClass = "top-1/2 -translate-y-1/2",
   renderSectionHeading,
   hideNextPrev = false,
 }: MySliderProps<T>) {
@@ -105,7 +107,7 @@ export default function Slider<T>({
 
       <MotionConfig
         transition={{
-          x: { type: 'cubic-bezier', easing: [0.25, 1, 0.5, 1] },
+          x: { type: "cubic-bezier", easing: [0.25, 1, 0.5, 1] },
           opacity: { duration: 0.2 },
         }}
       >

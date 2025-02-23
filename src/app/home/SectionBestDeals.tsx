@@ -1,9 +1,14 @@
-import React from 'react';
+import React from "react";
 
-import CountDownTimer from '@/components/CountDownTimer';
-import ProductSlider from '@/components/ProductSlider';
+import CountDownTimer from "@/components/CountDownTimer";
+import ProductSlider from "@/components/ProductSlider";
 
-const SectionBestDeals = () => {
+import { db } from "@/config/db";
+import { product } from "@/config/db/schema";
+
+const SectionBestDeals = async () => {
+  const data = await db.select().from(product).limit(4);
+
   return (
     <div className="container">
       <div className="overflow-hidden rounded-2xl bg-gray p-5">
@@ -12,7 +17,7 @@ const SectionBestDeals = () => {
           <CountDownTimer />
         </div>
         <div className="pb-2">
-          <ProductSlider />
+          <ProductSlider data={data} />
         </div>
       </div>
     </div>

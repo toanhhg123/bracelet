@@ -1,15 +1,11 @@
-'use client';
+"use client";
 
-import React from 'react';
+import Slider from "@/shared/Slider/Slider";
 
-import { shoes } from '@/data/content';
-import Slider from '@/shared/Slider/Slider';
+import type { Product } from "@/config/db/schema";
+import ProductCard from "./ProductCard";
 
-import ProductCard from './ProductCard';
-
-const data = shoes.slice(3, 9);
-
-const ProductSlider = () => {
+const ProductSlider = ({ data = [] }: { data?: Product[] }) => {
   return (
     <div className="">
       <Slider

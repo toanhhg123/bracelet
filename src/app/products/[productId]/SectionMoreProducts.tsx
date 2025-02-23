@@ -1,19 +1,20 @@
-import React from "react";
-
 import ProductCard from "@/components/ProductCard";
-import { shoes } from "@/data/content";
+import { db } from "@/config/db";
+import { product } from "@/config/db/schema";
 import Heading from "@/shared/Heading/Heading";
 
-const SectionMoreProducts = () => {
+const SectionMoreProducts = async () => {
+  const products = await db.select().from(product).limit(4);
+
   return (
     <div>
       <Heading className="mb-0">Explore more products</Heading>
 
       <div className="grid gap-7 md:grid-cols-2 lg:grid-cols-4">
-        {shoes.slice(4, 13).map((shoe) => (
+        {products.map((item) => (
           <ProductCard
-            key={shoe.name}
-            product={shoe}
+            key={item.id}
+            product={item}
             className="border-neutral-300"
           />
         ))}

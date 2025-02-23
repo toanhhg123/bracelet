@@ -3,12 +3,12 @@ import Link from "next/link";
 import type { FC } from "react";
 import React from "react";
 
-import type { ProductType } from "@/data/types";
-
 import LikeButton from "./LikeButton";
+import type { Product } from "@/config/db/schema";
+import { formatCurrency, IMAGES, renderUploadImage } from "@/utils/AppConfig";
 
 interface ProductCardProps {
-  product: ProductType;
+  product: Product;
   className?: string;
   showPrevPrice?: boolean;
 }
@@ -18,6 +18,10 @@ const ProductCard: FC<ProductCardProps> = ({
   className,
   showPrevPrice = false,
 }) => {
+  const image = product.coverImage
+    ? renderUploadImage(product.coverImage)
+    : IMAGES.NO_IMAGE;
+
   return (
     <div
       className={`transitionEffect relative rounded-2xl p-3 shadow-md ${className}`}
@@ -25,7 +29,7 @@ const ProductCard: FC<ProductCardProps> = ({
       <div className="h-[250px] w-full overflow-hidden rounded-2xl lg:h-[220px] 2xl:h-[300px]">
         {product.justIn && (
           <div className="absolute left-6 top-0 rounded-b-lg bg-primary px-3 py-2 text-sm uppercase text-white shadow-md">
-            Just In!
+            Mới về!
           </div>
         )}
         <LikeButton className="absolute right-2 top-2" />
@@ -34,9 +38,11 @@ const ProductCard: FC<ProductCardProps> = ({
           href={`/products/${product.slug}`}
         >
           <Image
-            src={product.coverImage}
+            src={image}
             alt={`${product.name} cover photo`}
             className="size-full object-cover object-bottom"
+            width={1000}
+            height={1000}
           />
         </Link>
       </div>
@@ -48,14 +54,16 @@ const ProductCard: FC<ProductCardProps> = ({
               showPrevPrice ? "block" : "hidden"
             } text-sm line-through`}
           >
-            ${product.previousPrice}
+            {product.previousPrice && formatCurrency(product.previousPrice)}
           </p>
         </div>
 
         <div className="flex items-center justify-between">
-          <p className="text-sm text-neutral-500">{product.shoeCategory}</p>
+          <p className="text-sm text-neutral-500">
+            Đã bán: {product.piecesSold}
+          </p>
           <p className="text-lg font-medium text-primary">
-            ${product.currentPrice}
+            {formatCurrency(product.currentPrice)}
           </p>
         </div>
       </div>
