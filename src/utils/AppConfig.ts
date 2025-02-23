@@ -40,9 +40,9 @@ export const ALL_PAGES = Object.values(LINKS).filter(
 );
 
 export const IMAGES = {
-  NO_IMAGE: "/uploads/no-image.png",
+  NO_IMAGE: "/assets/uploads/no-image.png",
 };
 
 export const renderUploadImage = (image: string) => {
-  return image.startsWith("http") ? image : `/uploads/${image}`;
+  return image.startsWith("http") ? image : `/assets/uploads/${image}`;
 };

@@ -14,6 +14,9 @@ export const users = mysqlTable("users", {
   name: varchar("name", { length: 255 }).notNull(),
   email: varchar("email", { length: 255 }).notNull().unique(),
   age: int("age"),
+  password: varchar("password", { length: 255 }).notNull(),
+  address: text("address"),
+  avatar: varchar("avatar", { length: 255 }),
 });
 
 export const product = mysqlTable("product", {

@@ -4,13 +4,11 @@ import React from "react";
 import { db } from "@/config/db";
 import { product } from "@/config/db/schema";
 import Button from "@/shared/Button/Button";
-import { IMAGES, LINKS } from "@/utils/AppConfig";
+import { IMAGES, LINKS, renderUploadImage } from "@/utils/AppConfig";
 
 const Page = async () => {
   // Truy vấn danh sách sản phẩm từ cơ sở dữ liệu
   const products = await db.select().from(product);
-
-  console.log("products :::: ", products);
 
   return (
     <div className="container my-10">
@@ -56,7 +54,9 @@ const Page = async () => {
           </thead>
           <tbody>
             {products.map((product) => {
-              product.coverImage = product.coverImage || IMAGES.NO_IMAGE;
+              product.coverImage = product.coverImage
+                ? renderUploadImage(product.coverImage)
+                : IMAGES.NO_IMAGE;
               return (
                 <tr key={product.id} className="border-b border-slate-200">
                   {/* Cột ảnh sản phẩm */}
@@ -64,9 +64,7 @@ const Page = async () => {
                     <div
                       className="bg-gray-200 flex size-16 items-center justify-center rounded"
                       style={{
-                        backgroundImage: product.coverImage
-                          ? `url(${product.coverImage})`
-                          : "none",
+                        backgroundImage: `url(${product.coverImage})`,
                         backgroundSize: "cover",
                         backgroundPosition: "center",
                       }}

@@ -1,8 +1,8 @@
-import React from 'react';
+import React from "react";
 
-import ProductCard from '@/components/ProductCard';
-import { shoes } from '@/data/content';
-import Heading from '@/shared/Heading/Heading';
+import ProductCard from "@/components/ProductCard";
+import { shoes } from "@/data/content";
+import Heading from "@/shared/Heading/Heading";
 
 const SectionMoreProducts = () => {
   return (
@@ -12,7 +12,7 @@ const SectionMoreProducts = () => {
       <div className="grid gap-7 md:grid-cols-2 lg:grid-cols-4">
         {shoes.slice(4, 13).map((shoe) => (
           <ProductCard
-            key={shoe.shoeName}
+            key={shoe.name}
             product={shoe}
             className="border-neutral-300"
           />

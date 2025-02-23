@@ -1,11 +1,13 @@
 import { db } from "@/config/db";
-import { product } from "@/config/db/schema";
-import { LINKS, TOAST_TYPE } from "@/utils/AppConfig";
+import { type Product, product } from "@/config/db/schema";
+import { LINKS, type SUBMIT_RESPONSE, TOAST_TYPE } from "@/utils/AppConfig";
 import { eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { notFound } from "next/navigation";
+import { update } from "../../create/submit";
+import Form from "../../form";
 import UpdateImage from "./UpdateImage";
-import { uploadImage } from "./upload";
+import { deleteFile, uploadImage } from "./upload";
 
 type Props = {
   params: Promise<{ id: number }>;
@@ -29,28 +31,79 @@ const page = async ({ params }: Props) => {
     return notFound();
   }
 
-  const shots = productDB.shots ? (productDB.shots as unknown as string[]) : [];
-  const handleUploadMainImage = async (file: File, isCoverImage: boolean) => {
+  const handleUploadMainImage = async (
+    file: File,
+    isCoverImage: boolean,
+    productDB: Product
+  ) => {
     "use server";
 
     const res = await uploadImage(file);
-    if (res.type === TOAST_TYPE.ERROR) return res;
+    const shots = productDB.shots
+      ? (productDB.shots as unknown as string[])
+      : [];
+
+    if (res.type === TOAST_TYPE.SUCCESS) {
+      // upload main photo
+      if (isCoverImage) {
+        await db
+          .update(product)
+          .set({ coverImage: res.data })
+          .where(eq(product.id, id));
+      }
+
+      // upload additional photo
+      if (!isCoverImage) {
+        await db
+          .update(product)
+          .set({ shots: [...shots, res.data] })
+          .where(eq(product.id, id));
+      }
+    }
+
+    revalidatePath(LINKS.EDIT_PRODUCT(productDB.id));
+
+    return res;
+  };
+
+  const onDelete = async (
+    url: string,
+    isCoverImage: boolean,
+    productDB: Product
+  ) => {
+    "use server";
+
+    const shots = productDB.shots
+      ? (productDB.shots as unknown as string[])
+      : [];
+
+    console.log(shots);
 
     if (isCoverImage) {
       await db
         .update(product)
-        .set({ coverImage: res.data })
+        .set({ coverImage: "" })
         .where(eq(product.id, id));
     }
 
     if (!isCoverImage) {
       await db
         .update(product)
-        .set({ shots: [...shots, res.data] })
+        .set({ shots: shots.filter((shot) => shot !== url) })
         .where(eq(product.id, id));
     }
 
+    await deleteFile(url);
     revalidatePath(LINKS.EDIT_PRODUCT(productDB.id));
+  };
+
+  const handUpdate = async (
+    formData: FormData,
+    oldProduct?: Product
+  ): Promise<SUBMIT_RESPONSE> => {
+    "use server";
+
+    const res = await update(formData, oldProduct?.id ?? id);
 
     return res;
   };
@@ -67,11 +120,16 @@ const page = async ({ params }: Props) => {
         </p>
       </div>
       {/* update images */}
+
       <UpdateImage
         onUpload={handleUploadMainImage}
-        coverImage={productDB.coverImage}
-        additionalImages={shots}
+        productDB={productDB}
+        onDelete={onDelete}
       />
+
+      <div className="mt-4">
+        <Form product={productDB} handleSubmit={handUpdate} type="UPDATE" />
+      </div>
     </div>
   );
 };

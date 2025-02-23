@@ -14,22 +14,35 @@ import {
   type SUBMIT_RESPONSE,
   TOAST_TYPE,
 } from "@/utils/AppConfig";
+import type { Product } from "@/config/db/schema";
 
 type Props = {
-  onUpload: (file: File, isCoverImage: boolean) => Promise<SUBMIT_RESPONSE>;
-  coverImage?: string;
-  additionalImages?: string[];
+  onUpload: (
+    file: File,
+    isCoverImage: boolean,
+    product: Product
+  ) => Promise<SUBMIT_RESPONSE>;
+  onDelete: (
+    url: string,
+    isCoverImage: boolean,
+    product: Product
+  ) => Promise<void>;
+  productDB: Product;
 };
 
 type UploadType = "MAIN" | "SUB";
 
-const UpdateImage = ({ onUpload, coverImage, additionalImages }: Props) => {
+const UpdateImage = ({ onUpload, productDB, onDelete }: Props) => {
   const [isOpen, setIsOpen] = useState<UploadType | undefined>();
 
   const [preview, setPreview] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
 
-  const handleDeleteImage = (url: string, isCoverImage: boolean) => {};
+  const handleDeleteImage = (url: string, isCoverImage: boolean) => {
+    startTransition(async () => {
+      await onDelete(url, isCoverImage, productDB);
+    });
+  };
 
   const previewImage = (file: File) => {
     const reader = new FileReader();
@@ -51,7 +64,8 @@ const UpdateImage = ({ onUpload, coverImage, additionalImages }: Props) => {
 
       const response = await onUpload(
         formData.get("image") as File,
-        isOpen === "MAIN"
+        isOpen === "MAIN",
+        productDB
       );
 
       toast[response.type](response.message);
@@ -76,16 +90,16 @@ const UpdateImage = ({ onUpload, coverImage, additionalImages }: Props) => {
             Ảnh chính
           </div>
           <div className="mt-2 flex items-center gap-4">
-            {coverImage ? (
+            {productDB.coverImage ? (
               <div className="relative">
                 <img
-                  src={renderUploadImage(coverImage)}
+                  src={renderUploadImage(productDB.coverImage)}
                   alt="Cover"
                   className="size-32 rounded object-cover"
                 />
                 <button
                   type="button"
-                  onClick={() => handleDeleteImage(coverImage, true)}
+                  onClick={() => handleDeleteImage(productDB.coverImage, true)}
                   className="absolute right-1 top-1 rounded-full bg-red-500 p-1 text-white hover:bg-red-600"
                 >
                   <TrashIcon className="size-4" />
@@ -110,7 +124,7 @@ const UpdateImage = ({ onUpload, coverImage, additionalImages }: Props) => {
         <div className="mt-6">
           <div className="text-gray-700 block text-sm font-medium">Ảnh phụ</div>
           <div className="mt-2 flex flex-wrap gap-4">
-            {additionalImages?.map((img, index) => (
+            {(productDB.shots as string[])?.map((img, index) => (
               <div key={img} className="relative">
                 <img
                   src={renderUploadImage(img)}

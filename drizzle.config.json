@@ -1,8 +1,13 @@
 {
   "schema": "./src/config/db/schema.ts",
   "out": "./db/migrations",
-  "driver": "mysql2",
+  "dialect": "mysql",
   "dbCredentials": {
-    "connectionString": "mysql://root:30122002@localhost:3306/app_db"
+    "connectionString": "mysql://root:30122002@localhost:3306/app_db",
+    "host": "localhost",
+    "port": 3306,
+    "database": "app_db",
+    "user": "root",
+    "password": "30122002"
   }
 }
