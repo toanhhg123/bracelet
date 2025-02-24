@@ -1,12 +1,12 @@
-import type { FC } from 'react';
-import React from 'react';
-import { FaRegCircleUser } from 'react-icons/fa6';
+import type { FC } from "react";
+import React from "react";
+import { FaRegCircleUser } from "react-icons/fa6";
 
-import ButtonPrimary from '@/shared/Button/ButtonPrimary';
-import ButtonSecondary from '@/shared/Button/ButtonSecondary';
-import Checkbox from '@/shared/Checkbox/Checkbox';
-import FormItem from '@/shared/FormItem';
-import Input from '@/shared/Input/Input';
+import ButtonPrimary from "@/shared/Button/ButtonPrimary";
+import ButtonSecondary from "@/shared/Button/ButtonSecondary";
+import Checkbox from "@/shared/Checkbox/Checkbox";
+import FormItem from "@/shared/FormItem";
+import Input from "@/shared/Input/Input";
 
 interface Props {
   isActive: boolean;
@@ -40,14 +40,14 @@ const ContactInfo: FC<Props> = ({ isActive, onCloseActive, onOpenActive }) => {
       </div>
       <div
         className={`space-y-4 border-t border-neutral-300 px-6 py-7 sm:space-y-6 ${
-          isActive ? 'block' : 'hidden'
+          isActive ? "block" : "hidden"
         }`}
       >
         <h3 className="text-lg font-semibold">Contact infomation</h3>
         <div className="max-w-lg">
           <FormItem label="Your phone number">
             <Input
-              rounded="rounded-lg"
+              rounded="rounded"
               sizeClass="h-12 px-4 py-3"
               className="border-neutral-300 bg-transparent placeholder:text-neutral-500 focus:border-primary"
               defaultValue="+808 xxx"

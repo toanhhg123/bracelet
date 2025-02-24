@@ -9,10 +9,17 @@
 		"prettier/prettier": [
 			"error",
 			{
+				"arrowParens": "always",
+				"semi": false,
+				"trailingComma": "none",
+				"tabWidth": 2,
+				"endOfLine": "auto",
+				"useTabs": false,
 				"singleQuote": true,
-				"endOfLine": "auto"
+				"printWidth": 80,
+				"jsxSingleQuote": true
 			}
-		] // Avoid conflict rule between Prettier and Airbnb Eslint
+		]
 	},
 	"overrides": [
 		// Configuration for TypeScript files

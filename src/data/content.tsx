@@ -118,10 +118,10 @@ export const NavLinks: NavItemType[] = [
 ];
 
 export const headerSection = {
-  title: "NEW ARRIVAL!",
-  heading: "AIR JORDAN 6 GX EASTSIDE",
+  title: "Vòng Tay Truyền Thống",
+  heading: "Tinh Hoa Văn Hóa",
   description:
-    "Feel unbeatable from the tee box to the final putt in a design that's pure early MJ: speed, class",
+    "Khám phá bộ sưu tập vòng tay truyền thống độc đáo, được chế tác tinh xảo từ các chất liệu cao cấp .",
 };
 
 export const promotionTag = {

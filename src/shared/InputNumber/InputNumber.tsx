@@ -1,20 +1,21 @@
-'use client';
+"use client";
 
-import type { FC } from 'react';
-import React, { useEffect, useState } from 'react';
+import { useRouter } from "next/navigation";
+import type { FC } from "react";
+import React, { useEffect, useState } from "react";
 
 export interface InputNumberProps {
   className?: string;
   defaultValue?: number;
   min?: number;
   max?: number;
-  onChange?: (value: number) => void;
+  onChange?: (value: number) => Promise<void>;
   label?: string;
   desc?: string;
 }
 
 const InputNumber: FC<InputNumberProps> = ({
-  className = 'w-full',
+  className = "w-full",
   defaultValue = 1,
   min = 1,
   max = 99,
@@ -23,6 +24,7 @@ const InputNumber: FC<InputNumberProps> = ({
   desc,
 }) => {
   const [value, setValue] = useState(defaultValue);
+  const { refresh } = useRouter();
 
   useEffect(() => {
     setValue(defaultValue);
@@ -33,14 +35,14 @@ const InputNumber: FC<InputNumberProps> = ({
     setValue((state) => {
       return state - 1;
     });
-    onChange && onChange(value - 1);
+    onChange?.(value - 1).then(refresh);
   };
   const handleClickIncrement = () => {
     if (max && max <= value) return;
     setValue((state) => {
       return state + 1;
     });
-    onChange && onChange(value + 1);
+    onChange?.(value + 1).then(refresh);
   };
 
   const renderLabel = () => {

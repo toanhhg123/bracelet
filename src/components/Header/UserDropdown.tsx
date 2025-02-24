@@ -51,7 +51,7 @@ const UserDropdown = () => {
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items className="divide-gray-100 absolute right-0 mt-2 min-w-max origin-top-right divide-y rounded-md bg-[#101010] p-2 shadow-lg ring-1 ring-black/5 focus:outline-none">
+        <Menu.Items className="divide-gray-100 absolute right-0 mt-2 min-w-max origin-top-right divide-y rounded bg-[#101010] p-2 shadow-lg ring-1 ring-black/5 focus:outline-none">
           <div className="flex flex-col">
             {options.map((item) => (
               <Link

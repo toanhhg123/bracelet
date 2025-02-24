@@ -71,12 +71,12 @@ const page = async ({ params }: Props) => {
   const onDelete = async (
     url: string,
     isCoverImage: boolean,
-    _productDB: Product
+    productParams: Product
   ) => {
     "use server";
 
-    const shots = productDB.shots
-      ? (productDB.shots as unknown as string[])
+    const shots = productParams.shots
+      ? (productParams.shots as unknown as string[])
       : [];
 
     console.log(shots);
@@ -96,7 +96,7 @@ const page = async ({ params }: Props) => {
     }
 
     await deleteFile(url);
-    revalidatePath(LINKS.EDIT_PRODUCT(productDB.id));
+    revalidatePath(LINKS.EDIT_PRODUCT(productParams.id));
   };
 
   const handUpdate = async (

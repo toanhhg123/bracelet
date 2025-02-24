@@ -12,15 +12,15 @@ module.exports = {
       '3xl': '1.875rem',
       '4xl': '2.25rem',
       '5xl': '3rem',
-      '6xl': '4rem',
+      '6xl': '4rem'
     },
     extend: {
       colors: {
         primary: '#330000',
         secondary: '#000000',
-        gray: '#eeeeee',
-      },
-    },
+        gray: '#eeeeee'
+      }
+    }
   },
-  plugins: [require("@tailwindcss/forms")], // eslint-disable-line
-};
+  plugins: [require('@tailwindcss/forms')] // eslint-disable-line
+}

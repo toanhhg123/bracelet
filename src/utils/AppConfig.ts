@@ -25,9 +25,9 @@ export const LINKS = {
   MANAGER_PRODUCT: "/manager/product",
   CREATE_PRODUCT: "/manager/product/create",
   EDIT_PRODUCT: (id: number | string) => `/manager/product/edit/${id}`,
-  PRODUCT: (slug: string) => `/product/${slug}`,
+  PRODUCT: (slug: string) => `/products/${slug}`,
   LOGIN: "/login",
-  REGISTER: "/register",
+  REGISTER: "/signup",
   LOGOUT: "/logout",
   PROFILE: "/profile",
   CART: "/cart",
@@ -41,7 +41,7 @@ export const ALL_PAGES = Object.values(LINKS).filter(
 );
 
 export const IMAGES = {
-  NO_IMAGE: "/assets/uploads/no-image.png",
+  NO_IMAGE: "/assets/images/no-image.png",
 };
 
 export const renderUploadImage = (image: string) => {

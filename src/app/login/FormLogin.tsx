@@ -59,7 +59,7 @@ const FormLogin = ({ login }: Props) => {
       </div>
       <span className="block text-center text-sm text-neutral-500">
         Bạn chưa có tài khoản ?
-        <Link href="/login" className="text-primary">
+        <Link href={LINKS.REGISTER} className="text-primary">
           Đăng kí
         </Link>
       </span>

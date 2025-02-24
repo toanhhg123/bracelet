@@ -41,7 +41,7 @@ const CheckoutPage = () => {
 
     return (
       <div key={shoeName} className="flex py-5 last:pb-0">
-        <div className="relative size-24 shrink-0 overflow-hidden rounded-xl md:size-40">
+        <div className="relative size-24 shrink-0 overflow-hidden rounded md:size-40">
           <Image
             fill
             src={coverImage}

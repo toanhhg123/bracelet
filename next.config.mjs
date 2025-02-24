@@ -1,14 +1,19 @@
 /* eslint-disable import/no-extraneous-dependencies, import/extensions */
-import withBundleAnalyzer from '@next/bundle-analyzer';
+import withBundleAnalyzer from '@next/bundle-analyzer'
 
 const bundleAnalyzer = withBundleAnalyzer({
-  enabled: process.env.ANALYZE === 'true',
-});
+  enabled: process.env.ANALYZE === 'true'
+})
 
 /** @type {import('next').NextConfig} */
 export default bundleAnalyzer({
+  experimental: {
+    serverActions: {
+      bodySizeLimit: '10mb' // Tăng
+    }
+  },
   eslint: {
-    dirs: ['.'],
+    dirs: ['.']
   },
   images: {
     remotePatterns: [
@@ -16,15 +21,15 @@ export default bundleAnalyzer({
         protocol: 'https',
         hostname: 'images.pexels.com',
         port: '',
-        pathname: '/**',
+        pathname: '/**'
       },
       {
         protocol: 'https',
         hostname: 'images.unsplash.com',
         port: '',
-        pathname: '/**',
-      },
-    ],
+        pathname: '/**'
+      }
+    ]
   },
   poweredByHeader: false,
   reactStrictMode: true,
@@ -34,9 +39,9 @@ export default bundleAnalyzer({
     // Module not found: Can't resolve 'utf-8-validate'
     config.externals.push({
       bufferutil: 'bufferutil',
-      'utf-8-validate': 'utf-8-validate',
-    });
+      'utf-8-validate': 'utf-8-validate'
+    })
 
-    return config;
-  },
-});
+    return config
+  }
+})
