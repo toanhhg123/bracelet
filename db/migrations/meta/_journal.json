@@ -36,6 +36,34 @@
       "when": 1740303806339,
       "tag": "0004_bitter_saracen",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "5",
+      "when": 1740771111293,
+      "tag": "0005_sour_james_howlett",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "5",
+      "when": 1740771144364,
+      "tag": "0006_red_bloodstorm",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "5",
+      "when": 1740771164868,
+      "tag": "0007_cool_ghost_rider",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "5",
+      "when": 1740771249598,
+      "tag": "0008_common_arclight",
+      "breakpoints": true
     }
   ]
 }
