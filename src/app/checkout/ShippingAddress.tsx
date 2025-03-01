@@ -4,6 +4,7 @@ import type { FC } from 'react'
 import React from 'react'
 import { TbTruckDelivery } from 'react-icons/tb'
 
+import { ADDRESS_TYPE } from '@/config/db/schema'
 import ButtonPrimary from '@/shared/Button/ButtonPrimary'
 import ButtonSecondary from '@/shared/Button/ButtonSecondary'
 import FormItem from '@/shared/FormItem'
@@ -58,30 +59,6 @@ const ShippingAddress: FC<Props> = ({
         }`}
       >
         {/* ============ */}
-        <div className='grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-3'>
-          <div>
-            <FormItem label='Tên'>
-              <Input
-                rounded='rounded-lg'
-                sizeClass='h-12 px-4 py-3'
-                className='border-neutral-300 bg-transparent placeholder:text-neutral-500 focus:border-primary'
-                defaultValue='Clark'
-              />
-            </FormItem>
-          </div>
-          <div>
-            <FormItem label='Họ'>
-              <Input
-                rounded='rounded-lg'
-                sizeClass='h-12 px-4 py-3'
-                className='border-neutral-300 bg-transparent placeholder:text-neutral-500 focus:border-primary'
-                defaultValue='Kent'
-              />
-            </FormItem>
-          </div>
-        </div>
-
-        {/* ============ */}
         <div className='space-y-4 sm:flex sm:space-x-3 sm:space-y-0'>
           <div className='flex-1'>
             <FormItem label='Địa chỉ'>
@@ -92,16 +69,18 @@ const ShippingAddress: FC<Props> = ({
                 placeholder=''
                 defaultValue='1234 Đường Chính'
                 type='text'
+                name='shippingAddressLine1'
               />
             </FormItem>
           </div>
           <div className='sm:w-1/3'>
-            <FormItem label='Căn hộ, Suite *'>
+            <FormItem label='Số nhà'>
               <Input
                 rounded='rounded-lg'
                 sizeClass='h-12 px-4 py-3'
                 className='border-neutral-300 bg-transparent placeholder:text-neutral-500 focus:border-primary'
                 defaultValue='567'
+                name='shippingAddressLine2'
               />
             </FormItem>
           </div>
@@ -115,13 +94,15 @@ const ShippingAddress: FC<Props> = ({
                 rounded='rounded-lg'
                 sizeClass='h-12 px-4 py-3'
                 className='border-neutral-300 bg-transparent placeholder:text-neutral-500 focus:border-primary'
-                defaultValue='Thành phố'
+                defaultValue='Thành phố Hồ Chí Minh'
+                name='shippingCity'
               />
             </FormItem>
           </div>
           <div>
             <FormItem label='Quốc gia'>
               <Select
+                name='shippingCountry'
                 sizeClass='h-12 px-4 py-3'
                 className='rounded-lg border-neutral-300 bg-transparent placeholder:text-neutral-500 focus:border-primary'
                 defaultValue={countryOptions?.[0]?.value}
@@ -139,12 +120,13 @@ const ShippingAddress: FC<Props> = ({
         {/* ============ */}
         <div className='grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-3'>
           <div>
-            <FormItem label='Bang/Tỉnh'>
+            <FormItem label='Tỉnh'>
               <Input
+                name='shippingState'
                 rounded='rounded-lg'
                 sizeClass='h-12 px-4 py-3'
                 className='border-neutral-300 bg-transparent placeholder:text-neutral-500 focus:border-primary'
-                defaultValue='Arizona'
+                defaultValue='TP Hồ Chí Minh'
               />
             </FormItem>
           </div>
@@ -152,10 +134,11 @@ const ShippingAddress: FC<Props> = ({
         <div>
           <FormItem label='Mã bưu điện'>
             <Input
+              name='shippingPostalCode'
               rounded='rounded-lg'
               sizeClass='h-12 px-4 py-3'
               className='border-neutral-300 bg-transparent placeholder:text-neutral-500 focus:border-primary'
-              defaultValue='12345'
+              defaultValue='0070'
             />
           </FormItem>
         </div>
@@ -167,14 +150,14 @@ const ShippingAddress: FC<Props> = ({
           <div className='mt-1.5 grid grid-cols-1 gap-2 sm:grid-cols-2 sm:gap-3'>
             <Radio
               label='Nhà riêng (Giao hàng cả ngày)'
-              id='Address-type-home'
-              name='Address-type'
+              id={ADDRESS_TYPE.HOME}
+              name='addressType'
               defaultChecked
             />
             <Radio
               label='Văn phòng (Giao hàng 9 AM - 5 PM)'
-              id='Address-type-office'
-              name='Address-type'
+              id={ADDRESS_TYPE.WORK}
+              name='addressType'
             />
           </div>
         </FormItem>

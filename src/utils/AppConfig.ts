@@ -1,58 +1,60 @@
 // FIXME: Update this configuration file based on your project information
 
 export const AppConfig = {
-  site_name: "Starter",
-  title: "Hotkicks Ecommerce Template",
+  site_name: 'Starter',
+  title: 'Hotkicks Ecommerce Template',
   description:
-    "Hotkicks Ecommerce Template in NextJS, React, HTML and TailwindCSS",
-  locale: "en",
-};
+    'Hotkicks Ecommerce Template in NextJS, React, HTML and TailwindCSS',
+  locale: 'en'
+}
 
 export type SUBMIT_RESPONSE = {
-  type: "success" | "error";
-  message: string;
+  type: 'success' | 'error'
+  message: string
   // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-  data?: any;
-};
+  data?: any
+}
 
 export const TOAST_TYPE = {
-  SUCCESS: "success" as SUBMIT_RESPONSE["type"],
-  ERROR: "error" as SUBMIT_RESPONSE["type"],
-};
+  SUCCESS: 'success' as SUBMIT_RESPONSE['type'],
+  ERROR: 'error' as SUBMIT_RESPONSE['type']
+}
 
 export const LINKS = {
-  HOME: "/",
-  MANAGER_PRODUCT: "/manager/product",
-  CREATE_PRODUCT: "/manager/product/create",
+  HOME: '/',
+  MANAGER_PRODUCT: '/manager/product',
+  CREATE_PRODUCT: '/manager/product/create',
   EDIT_PRODUCT: (id: number | string) => `/manager/product/edit/${id}`,
   PRODUCT: (slug: string) => `/products/${slug}`,
-  LOGIN: "/login",
-  REGISTER: "/signup",
-  LOGOUT: "/logout",
-  PROFILE: "/profile",
-  CART: "/cart",
-  USER_MANAGER: "/user-manager",
-  ORDER_MANAGER: "/order-manager",
-  NOT_FOUND: "/404",
-};
+  LOGIN: '/login',
+  REGISTER: '/signup',
+  LOGOUT: '/logout',
+  PROFILE: '/profile',
+  CART: '/cart',
+  USER_MANAGER: '/user-manager',
+  ORDER_MANAGER: '/manager/order',
+  NOT_FOUND: '/404',
+  CHECK_OUT_SUCCESS: '/checkout-success',
+  ORDER_DETAILS: (id: number | string) => `/manager/order/${id}`
+}
 
 export const ALL_PAGES = Object.values(LINKS).filter(
-  (link) => typeof link === "string"
-);
+  (link) => typeof link === 'string'
+)
 
 export const IMAGES = {
-  NO_IMAGE: "/assets/images/no-image.png",
-};
+  NO_IMAGE: '/assets/images/no-image.png'
+}
 
 export const renderUploadImage = (image: string) => {
-  return image?.startsWith("http") ? image : `/assets/uploads/${image}`;
-};
+  return image?.startsWith('http') ? image : `/assets/uploads/${image}`
+}
 
 export function formatCurrency(amount: number): string {
-  return new Intl.NumberFormat("vi-VN", {
-    style: "currency",
-    currency: "VND",
+  return new Intl.NumberFormat('vi-VN', {
+    style: 'currency',
+    currency: 'VND'
   })
     .format(amount)
-    .replace("₫", "đ");
+    .replace('₫', 'đ')
 }

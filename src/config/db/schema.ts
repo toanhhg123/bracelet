@@ -76,6 +76,19 @@ export const orders = mysqlTable('orders', {
   updatedAt: timestamp('updated_at').onUpdateNow() // Thời gian cập nhật đơn hàng
 })
 
+export const ADDRESS_TYPE = {
+  HOME: 'home',
+  WORK: 'work'
+}
+
+export const ORDER_STATUS = {
+  PENDING: 'pending',
+  PROCESSING: 'processing',
+  SHIPPED: 'shipped',
+  DELIVERED: 'delivered',
+  CANCELLED: 'cancelled'
+}
+
 export type Order = typeof orders.$inferSelect
 
 export const orderItems = mysqlTable('order_items', {

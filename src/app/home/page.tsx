@@ -1,5 +1,4 @@
 import SectionBestDeals from './SectionBestDeals'
-import SectionBrands from './SectionBrands'
 import SectionHeader from './SectionHeader'
 import SectionProducts from './SectionProducts'
 

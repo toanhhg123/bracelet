@@ -7,7 +7,7 @@ import { MdStar } from 'react-icons/md'
 
 import LikeButton from '@/components/LikeButton'
 import { db } from '@/config/db'
-import { cart } from '@/config/db/schema'
+import { cart, orderItems, orders } from '@/config/db/schema'
 import ButtonPrimary from '@/shared/Button/ButtonPrimary'
 import Input from '@/shared/Input/Input'
 import InputNumber from '@/shared/InputNumber/InputNumber'
@@ -35,6 +35,67 @@ const CheckoutPage = async () => {
     (total, item) => total + item.totalPrice,
     0
   )
+
+  const handleSubmit = async (form: FormData) => {
+    'use server'
+
+    const data = Object.fromEntries(form.entries()) as {
+      contactPhone: string
+      contactName: string
+      uudai: string
+      shippingAddressLine1: string
+      shippingAddressLine2: string
+      shippingCity: string
+      shippingCountry: string
+      shippingState: string
+      shippingPostalCode: string
+      addressType: string
+    }
+
+    const { id: userId } = await getUser()
+    const carts = await getCartWithProducts(userId)
+    const total = carts.reduce((sum, item) => sum + item.totalPrice, 0)
+
+    // Tạo đơn hàng mới
+    const [orderId] = await db
+      .insert(orders)
+      .values({
+        userId,
+        contactName: data.contactName,
+        contactPhone: data.contactPhone,
+        shippingAddressLine1: data.shippingAddressLine1,
+        shippingAddressLine2: data.shippingAddressLine2,
+        shippingCity: data.shippingCity,
+        shippingState: data.shippingState,
+        shippingPostalCode: data.shippingPostalCode,
+        shippingCountry: data.shippingCountry,
+        addressType: data.addressType,
+        paymentMethod: 'Credit Card', // Có thể thay đổi tùy theo phương thức thanh toán
+        status: 'pending',
+        totalPrice: total,
+        notes: data.uudai // Lưu mã ưu đãi (nếu có)
+      })
+      .$returningId()
+
+    if (!orderId) {
+      return
+    }
+
+    // Prepare data for bulk insert
+    const orderItemsData = carts.map((item) => ({
+      orderId: orderId.id,
+      productId: item.product.id,
+      quantity: item.quantity,
+      price: item.product.currentPrice,
+      notes: null
+    }))
+
+    await db.insert(orderItems).values(orderItemsData)
+
+    // Delete items from cart
+    await db.delete(cart).where(eq(cart.userId, userId))
+    redirect(LINKS.CHECK_OUT_SUCCESS)
+  }
 
   const renderProduct = (item: CartItem) => {
     const { name, currentPrice, slug, rating, piecesSold } = item.product
@@ -110,7 +171,7 @@ const CheckoutPage = async () => {
           </h2>
         </div>
 
-        <div className='flex flex-col lg:flex-row'>
+        <form className='flex flex-col lg:flex-row' action={handleSubmit}>
           <div className='flex-1'>
             <RenderTab />
           </div>
@@ -120,7 +181,7 @@ const CheckoutPage = async () => {
           <div className='w-full lg:w-[36%]'>
             <h3 className='text-lg font-semibold'>Tóm Tắt Đơn Hàng</h3>
             <div className='mt-8 divide-y divide-neutral-300'>
-              {cartItems.slice(0, 3).map((item) => renderProduct(item))}
+              {cartItems.map((item) => renderProduct(item))}
             </div>
 
             <div className='mt-10 border-t border-neutral-300 pt-6 text-sm'>
@@ -160,11 +221,11 @@ const CheckoutPage = async () => {
                 <span>{formatCurrency(totalPrice)}</span>
               </div>
             </div>
-            <ButtonPrimary className='mt-8 w-full'>
+            <ButtonPrimary type='submit' className='mt-8 w-full'>
               Xác Nhận Đơn Hàng
             </ButtonPrimary>
           </div>
-        </div>
+        </form>
       </main>
     </div>
   )

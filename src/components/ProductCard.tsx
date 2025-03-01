@@ -54,7 +54,7 @@ const ProductCard: FC<ProductCardProps> = ({
       </div>
       <div className='mt-3'>
         <div className='flex items-center justify-between'>
-          <h3 className='font-semibold truncate'>{product.name}</h3>
+          <h3 className='truncate font-semibold'>{product.name}</h3>
           <p
             className={`text-neutral-500 ${
               showPrevPrice ? 'block' : 'hidden'

@@ -33,6 +33,7 @@ const ContactInfo: FC<Props> = ({ isActive, onCloseActive, onOpenActive }) => {
             sizeClass='py-2 px-4'
             className='border-2 border-primary text-primary'
             onClick={onOpenActive}
+            type='button'
           >
             Chỉnh Sửa
           </ButtonSecondary>
@@ -52,16 +53,19 @@ const ContactInfo: FC<Props> = ({ isActive, onCloseActive, onOpenActive }) => {
               className='border-neutral-300 bg-transparent placeholder:text-neutral-500 focus:border-primary'
               defaultValue='+84 '
               type='tel'
+              name='contactPhone'
             />
           </FormItem>
         </div>
         <div className='max-w-lg'>
-          <FormItem label='Địa chỉ email'>
+          <FormItem label='Địa chỉ email hoặc tên'>
             <Input
               rounded='rounded-lg'
               sizeClass='h-12 px-4 py-3'
+              placeholder='Tên hoặc email của bạn'
               className='border-neutral-300 bg-transparent placeholder:text-neutral-500 focus:border-primary'
-              type='email'
+              type='text'
+              name='contactName'
             />
           </FormItem>
         </div>
@@ -79,6 +83,7 @@ const ContactInfo: FC<Props> = ({ isActive, onCloseActive, onOpenActive }) => {
           <ButtonPrimary
             className='shadow-none sm:!px-7'
             onClick={() => onCloseActive()}
+            type='button'
           >
             Lưu và tiếp tục giao hàng
           </ButtonPrimary>
