@@ -30,7 +30,7 @@ const ProductCard: FC<ProductCardProps> = ({
 
   return (
     <div
-      className={`transitionEffect relative rounded p-3 shadow-md ${className}`}
+      className={`transitionEffect relative rounded p-3 shadow-md ${className} `}
     >
       <div className='h-[250px] w-full overflow-hidden rounded lg:h-[220px] 2xl:h-[300px]'>
         {product.justIn && (

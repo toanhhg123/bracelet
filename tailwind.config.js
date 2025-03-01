@@ -16,11 +16,11 @@ module.exports = {
     },
     extend: {
       colors: {
-        primary: '#161748',
+        primary: '#4B164C',
         secondary: '#000000',
         gray: '#eeeeee'
       }
     }
   },
-  plugins: [require('@tailwindcss/forms')] // eslint-disable-line
+  plugins: [require('@tailwindcss/forms'), require('@tailwindcss/typography')] // eslint-disable-line
 }

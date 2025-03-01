@@ -1,12 +1,13 @@
 'use client'
 
+import { useState, useTransition } from 'react'
+import toast from 'react-hot-toast'
+
 import type { Product } from '@/config/db/schema'
 import Button from '@/shared/Button/Button'
 import ButtonPrimary from '@/shared/Button/ButtonPrimary'
 import ButtonSecondary from '@/shared/Button/ButtonSecondary'
 import Input from '@/shared/Input/Input'
-import { useState, useTransition } from 'react'
-import toast from 'react-hot-toast'
 
 type Props = {
   product: Product
@@ -59,7 +60,8 @@ const ProductAttribute = ({ product, onChange }: Props) => {
     e.preventDefault()
     startTransition(async () => {
       const data = { ...attributes }
-      for (const key in attributes) {
+
+      for (const key of Object.keys(attributes)) {
         if (!data[key]) {
           delete attributes[key]
         }
@@ -78,23 +80,23 @@ const ProductAttribute = ({ product, onChange }: Props) => {
         Use a permanent address where you can receive mail.
       </p>
 
-      <div className='sm:col-span-6 mt-4'>
-        <h3 className='text-gray-700 text-lg font-semibold mb-2'>
+      <div className='mt-4 sm:col-span-6'>
+        <h3 className='text-gray-700 mb-2 text-lg font-semibold'>
           Thuộc tính:
         </h3>
         {Object.entries(attributes).map(([key, values], i) => {
           return (
             <div
-              className='flex gap-2 items-center mt-4'
+              className='mt-4 flex items-center gap-2'
               key={i.toLocaleString()}
             >
-              <div className='text-gray-700 text-sm font-medium w-40'>
+              <div className='text-gray-700 w-40 text-sm font-medium'>
                 {key}:{' '}
               </div>
               {values.map((value, index) => (
                 <div
                   key={index.toLocaleString()}
-                  className='text-gray-700 text-sm font-medium bg-slate-200 p-2'
+                  className='text-gray-700 bg-slate-200 p-2 text-sm font-medium'
                 >
                   {value}
                 </div>
@@ -114,7 +116,7 @@ const ProductAttribute = ({ product, onChange }: Props) => {
             Thuộc tính sản phẩm
           </label>
           {Object.entries(attributes).map(([key, values], index) => (
-            <div key={index.toLocaleString()} className='flex gap-4 mt-2'>
+            <div key={index.toLocaleString()} className='mt-2 flex gap-4'>
               <Input
                 placeholder='Tên thuộc tính (VD: Màu sắc)'
                 value={key}
@@ -130,7 +132,7 @@ const ProductAttribute = ({ product, onChange }: Props) => {
               </ButtonSecondary>
             </div>
           ))}
-          <div className='flex justify-between items-center'>
+          <div className='flex items-center justify-between'>
             <Button onClick={handleAddAttribute} className='mt-2'>
               + Thêm thuộc tính
             </Button>

@@ -1,3 +1,4 @@
+import { eq } from 'drizzle-orm'
 import { LuFilter } from 'react-icons/lu'
 import { MdOutlineFilterList, MdSearch } from 'react-icons/md'
 
@@ -8,17 +9,32 @@ import { category, product } from '@/config/db/schema'
 import ButtonSecondary from '@/shared/Button/ButtonSecondary'
 import Input from '@/shared/Input/Input'
 
-import SectionBrands from '../home/SectionBrands'
+type Props = {
+  searchParams: Promise<{
+    category?: string
+  }>
+}
 
-const page = async () => {
-  const products = await db.select().from(product).limit(12)
+const page = async ({ searchParams }: Props) => {
+  const { category: categoryId } = await searchParams
+  const productsQuery = db.select().from(product)
+  if (categoryId) {
+    productsQuery.where(eq(product.categoryId, Number.parseInt(categoryId, 10)))
+  }
+  productsQuery.limit(12)
+  const products = await productsQuery
   const categories = await db.select().from(category)
 
   return (
     <div className='my-8 pb-20'>
       <div className='container relative flex flex-col lg:flex-row' id='body'>
         <div className='pr-4 pt-10 lg:basis-1/3 xl:basis-1/4'>
-          <SidebarFilters categories={categories} />
+          <SidebarFilters
+            categories={categories}
+            defaultCategory={
+              categoryId ? Number.parseInt(categoryId, 10) : undefined
+            }
+          />
         </div>
         <div className='mb-10 shrink-0 border-t lg:mx-4 lg:mb-0 lg:border-t-0' />
         <div className='relative flex-1'>

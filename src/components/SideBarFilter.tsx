@@ -2,37 +2,42 @@
 
 import 'rc-slider/assets/index.css'
 
-import { pathOr, union } from 'ramda'
-import Slider from 'rc-slider'
-import React, { useState } from 'react'
-import { MdSearch } from 'react-icons/md'
+import { useRouter } from 'next/navigation'
 
-import Heading from '@/shared/Heading/Heading'
-import Input from '@/shared/Input/Input'
 import type { Category } from '@/config/db/schema'
+import Heading from '@/shared/Heading/Heading'
+import { LINKS } from '@/utils/AppConfig'
 
-const gender = ['Men', 'Women', 'Unisex', 'Kids']
+// const gender = ['Men', 'Women', 'Unisex', 'Kids']
 
-const locations = [
-  'New York',
-  'Canada',
-  'Bangladesh',
-  'Indonesia',
-  'San Francisco'
-]
+// const locations = [
+//   'New York',
+//   'Canada',
+//   'Bangladesh',
+//   'Indonesia',
+//   'San Francisco'
+// ]
 
-const PRICE_RANGE = [1, 500]
+// const PRICE_RANGE = [1, 500]
 
-//
+// //
 
 type Props = {
   categories?: Category[]
+  defaultCategory?: number
 }
-const SidebarFilters = ({ categories = [] }: Props) => {
-  const [rangePrices, setRangePrices] = useState([100, 500])
-  const [activeCategory, setActiveCategory] = useState<string>()
-  const [activeGender, setActiveGender] = useState('Men')
-  const [activeLocation, setActiveLocation] = useState('New York')
+const SidebarFilters = ({ categories = [], defaultCategory }: Props) => {
+  const router = useRouter()
+
+  const handleChangeCategory = (category: number | null) => {
+    if (category === null) {
+      router.push(LINKS.PRODUCTS)
+      return
+    }
+
+    const url = new URLSearchParams({ category: category.toString() })
+    router.push(`?${url.toString()}`)
+  }
 
   const renderTabsCategories = () => {
     return (
@@ -41,9 +46,11 @@ const SidebarFilters = ({ categories = [] }: Props) => {
         <div className='grid grid-cols-2 gap-4'>
           <button
             type='button'
-            onClick={() => setActiveCategory(undefined)}
+            onClick={() => handleChangeCategory(null)}
             className={`rounded-lg py-4 ${
-              activeCategory === undefined ? 'bg-primary text-white' : 'bg-gray'
+              defaultCategory === undefined
+                ? 'bg-primary text-white'
+                : 'bg-gray'
             }`}
           >
             Tất cả
@@ -52,9 +59,9 @@ const SidebarFilters = ({ categories = [] }: Props) => {
             <button
               key={item.name}
               type='button'
-              onClick={() => setActiveCategory(item.name)}
+              onClick={() => handleChangeCategory(item.id)}
               className={`rounded-lg py-4 ${
-                activeCategory === item.name
+                defaultCategory === item.id
                   ? 'bg-primary text-white'
                   : 'bg-gray'
               }`}
@@ -68,120 +75,120 @@ const SidebarFilters = ({ categories = [] }: Props) => {
   }
 
   // OK
-  const renderTabsGender = () => {
-    return (
-      <div className='relative flex flex-col space-y-4 py-8'>
-        <h3 className='mb-2.5 text-xl font-medium'>Gender</h3>
-        <div className='grid grid-cols-2 gap-4'>
-          {gender.map((item) => (
-            <button
-              key={item}
-              type='button'
-              onClick={() => setActiveGender(item)}
-              className={`rounded-lg py-4 ${
-                activeGender === item ? 'bg-primary text-white' : 'bg-gray'
-              }`}
-            >
-              {item}
-            </button>
-          ))}
-        </div>
-      </div>
-    )
-  }
+  // const renderTabsGender = () => {
+  //   return (
+  //     <div className='relative flex flex-col space-y-4 py-8'>
+  //       <h3 className='mb-2.5 text-xl font-medium'>Gender</h3>
+  //       <div className='grid grid-cols-2 gap-4'>
+  //         {gender.map((item) => (
+  //           <button
+  //             key={item}
+  //             type='button'
+  //             onClick={() => setActiveGender(item)}
+  //             className={`rounded-lg py-4 ${
+  //               activeGender === item ? 'bg-primary text-white' : 'bg-gray'
+  //             }`}
+  //           >
+  //             {item}
+  //           </button>
+  //         ))}
+  //       </div>
+  //     </div>
+  //   )
+  // }
 
-  // OK
-  const renderTabsPriceRage = () => {
-    return (
-      <div className='relative flex flex-col space-y-5 py-8 pr-3'>
-        <div className='space-y-5'>
-          <span className='font-semibold'>Price range</span>
-          <Slider
-            range
-            min={PRICE_RANGE[0]}
-            max={PRICE_RANGE[1]}
-            step={1}
-            defaultValue={[
-              pathOr(0, [0], rangePrices),
-              pathOr(0, [1], rangePrices)
-            ]}
-            allowCross={false}
-            onChange={(_input: number | number[]) =>
-              setRangePrices(_input as number[])
-            }
-          />
-        </div>
+  // // OK
+  // const renderTabsPriceRage = () => {
+  //   return (
+  //     <div className='relative flex flex-col space-y-5 py-8 pr-3'>
+  //       <div className='space-y-5'>
+  //         <span className='font-semibold'>Price range</span>
+  //         <Slider
+  //           range
+  //           min={PRICE_RANGE[0]}
+  //           max={PRICE_RANGE[1]}
+  //           step={1}
+  //           defaultValue={[
+  //             pathOr(0, [0], rangePrices),
+  //             pathOr(0, [1], rangePrices)
+  //           ]}
+  //           allowCross={false}
+  //           onChange={(_input: number | number[]) =>
+  //             setRangePrices(_input as number[])
+  //           }
+  //         />
+  //       </div>
 
-        <div className='flex justify-between space-x-5'>
-          <div>
-            <div className='block text-sm font-medium'>Min price</div>
-            <div className='relative mt-1 rounded-md'>
-              <span className='pointer-events-none absolute inset-y-0 right-4 flex items-center text-neutral-500 sm:text-sm'>
-                $
-              </span>
-              <input
-                type='text'
-                name='minPrice'
-                disabled
-                id='minPrice'
-                className='block w-32 rounded-full border-neutral-300 bg-transparent pl-4 pr-10 sm:text-sm'
-                value={rangePrices[0]}
-              />
-            </div>
-          </div>
-          <div>
-            <div className='block text-sm font-medium'>Max price</div>
-            <div className='relative mt-1 rounded-md'>
-              <span className='pointer-events-none absolute inset-y-0 right-4 flex items-center text-neutral-500 sm:text-sm'>
-                $
-              </span>
-              <input
-                type='text'
-                disabled
-                name='maxPrice'
-                id='maxPrice'
-                className='block w-32 rounded-full border-neutral-300 bg-transparent pl-4 pr-10 sm:text-sm'
-                value={rangePrices[1]}
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-    )
-  }
+  //       <div className='flex justify-between space-x-5'>
+  //         <div>
+  //           <div className='block text-sm font-medium'>Min price</div>
+  //           <div className='relative mt-1 rounded-md'>
+  //             <span className='pointer-events-none absolute inset-y-0 right-4 flex items-center text-neutral-500 sm:text-sm'>
+  //               $
+  //             </span>
+  //             <input
+  //               type='text'
+  //               name='minPrice'
+  //               disabled
+  //               id='minPrice'
+  //               className='block w-32 rounded-full border-neutral-300 bg-transparent pl-4 pr-10 sm:text-sm'
+  //               value={rangePrices[0]}
+  //             />
+  //           </div>
+  //         </div>
+  //         <div>
+  //           <div className='block text-sm font-medium'>Max price</div>
+  //           <div className='relative mt-1 rounded-md'>
+  //             <span className='pointer-events-none absolute inset-y-0 right-4 flex items-center text-neutral-500 sm:text-sm'>
+  //               $
+  //             </span>
+  //             <input
+  //               type='text'
+  //               disabled
+  //               name='maxPrice'
+  //               id='maxPrice'
+  //               className='block w-32 rounded-full border-neutral-300 bg-transparent pl-4 pr-10 sm:text-sm'
+  //               value={rangePrices[1]}
+  //             />
+  //           </div>
+  //         </div>
+  //       </div>
+  //     </div>
+  //   )
+  // }
 
-  // OK
-  const renderTabsLocation = () => {
-    return (
-      <div className='relative flex flex-col space-y-4 py-8'>
-        <h3 className='mb-2.5 text-xl font-medium'>Location</h3>
-        <div className='mb-2 flex items-center gap-2 space-y-3 rounded-full border border-neutral-300 px-4 md:flex md:space-y-0'>
-          <MdSearch className='text-2xl text-neutral-500' />
-          <Input
-            type='password'
-            rounded='rounded-full'
-            placeholder='Search...'
-            sizeClass='h-12 px-0 py-3'
-            className='border-transparent bg-transparent placeholder:text-neutral-500 focus:border-transparent'
-          />
-        </div>
-        <div className='grid grid-cols-2 gap-4'>
-          {locations.map((item) => (
-            <button
-              key={item}
-              type='button'
-              onClick={() => setActiveLocation(item)}
-              className={`rounded-lg py-4 ${
-                activeLocation === item ? 'bg-primary text-white' : 'bg-gray'
-              }`}
-            >
-              {item}
-            </button>
-          ))}
-        </div>
-      </div>
-    )
-  }
+  // // OK
+  // const renderTabsLocation = () => {
+  //   return (
+  //     <div className='relative flex flex-col space-y-4 py-8'>
+  //       <h3 className='mb-2.5 text-xl font-medium'>Location</h3>
+  //       <div className='mb-2 flex items-center gap-2 space-y-3 rounded-full border border-neutral-300 px-4 md:flex md:space-y-0'>
+  //         <MdSearch className='text-2xl text-neutral-500' />
+  //         <Input
+  //           type='password'
+  //           rounded='rounded-full'
+  //           placeholder='Search...'
+  //           sizeClass='h-12 px-0 py-3'
+  //           className='border-transparent bg-transparent placeholder:text-neutral-500 focus:border-transparent'
+  //         />
+  //       </div>
+  //       <div className='grid grid-cols-2 gap-4'>
+  //         {locations.map((item) => (
+  //           <button
+  //             key={item}
+  //             type='button'
+  //             onClick={() => setActiveLocation(item)}
+  //             className={`rounded-lg py-4 ${
+  //               activeLocation === item ? 'bg-primary text-white' : 'bg-gray'
+  //             }`}
+  //           >
+  //             {item}
+  //           </button>
+  //         ))}
+  //       </div>
+  //     </div>
+  //   )
+  // }
 
   return (
     <div className='top-28 lg:sticky'>

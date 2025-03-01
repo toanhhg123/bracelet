@@ -4,9 +4,9 @@ import React, { useTransition } from 'react'
 import toast from 'react-hot-toast'
 import { BsBag } from 'react-icons/bs'
 
+import type { Product } from '@/config/db/schema'
 import ButtonSecondary from '@/shared/Button/ButtonSecondary'
 import type { SUBMIT_RESPONSE } from '@/utils/AppConfig'
-import type { Product } from '@/config/db/schema'
 
 type Props = {
   handleAddToCart: (
@@ -52,7 +52,7 @@ const AddToCart = ({ handleAddToCart, productId, product }: Props) => {
                   <button
                     type='button'
                     key={index.toLocaleString()}
-                    className={`px-4 py-2 border rounded-lg hover:bg-neutral-100 
+                    className={`rounded-lg border px-4 py-2 hover:bg-neutral-100 
                       ${productAttributes[key] === value ? 'bg-primary text-white hover:bg-primary' : ''}`}
                     onClick={() => {
                       handleAddAttribute(key, value)

@@ -8,9 +8,9 @@ import { LINKS, type SUBMIT_RESPONSE, TOAST_TYPE } from '@/utils/AppConfig'
 
 import { update } from '../../create/submit'
 import Form from '../../form'
+import ProductAttribute from './ProductAttribute'
 import UpdateImage from './UpdateImage'
 import { deleteFile, uploadImage } from './upload'
-import ProductAttribute from './ProductAttribute'
 
 type Props = {
   params: Promise<{ id: number }>
@@ -136,7 +136,7 @@ const page = async ({ params }: Props) => {
         onDelete={onDelete}
       />
 
-      <div className='mt-4 border-gray-900/10 border-b pb-12'>
+      <div className='border-gray-900/10 mt-4 border-b pb-12'>
         <Form
           product={productDB}
           handleSubmit={handUpdate}

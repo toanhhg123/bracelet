@@ -33,6 +33,10 @@ const options = [
   {
     name: 'Quản lí đơn hàng',
     url: LINKS.ORDER_MANAGER
+  },
+  {
+    name: 'Quản lí đơn hàng',
+    url: LINKS.ORDER_MANAGER
   }
 ]
 
