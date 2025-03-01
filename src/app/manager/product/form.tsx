@@ -1,203 +1,215 @@
-"use client";
+'use client'
 
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useTransition } from "react";
-import toast from "react-hot-toast";
+import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+import { useTransition } from 'react'
+import toast from 'react-hot-toast'
 
-import type { Product } from "@/config/db/schema";
-import { LINKS, type SUBMIT_RESPONSE, TOAST_TYPE } from "@/utils/AppConfig";
+import type { Category, Product } from '@/config/db/schema'
+import { LINKS, type SUBMIT_RESPONSE, TOAST_TYPE } from '@/utils/AppConfig'
 
 type Props = {
   handleSubmit: (
     formData: FormData,
     product?: Product
-  ) => Promise<SUBMIT_RESPONSE>;
-  product?: Product;
-  type?: "CREATE" | "UPDATE";
-};
+  ) => Promise<SUBMIT_RESPONSE>
+  product?: Product
+  type?: 'CREATE' | 'UPDATE'
+  categories?: Category[]
+}
 
-const Form = ({ handleSubmit, product, type = "CREATE" }: Props) => {
-  const [isPending, startTransition] = useTransition();
-  const router = useRouter();
+const Form = ({
+  handleSubmit,
+  product,
+  type = 'CREATE',
+  categories = []
+}: Props) => {
+  const [isPending, startTransition] = useTransition()
+  const router = useRouter()
 
   const onSubmit = (formData: FormData) => {
     startTransition(async () => {
-      const response = await handleSubmit(formData, product);
-      toast[response.type](response.message);
+      const response = await handleSubmit(formData, product)
+      toast[response.type](response.message)
 
       if (response.type === TOAST_TYPE.SUCCESS) {
-        router.push(LINKS.MANAGER_PRODUCT);
+        router.push(LINKS.MANAGER_PRODUCT)
       }
-    });
-  };
+    })
+  }
 
   return (
     <form action={onSubmit}>
-      <div className="border-gray-900/10 border-b pb-12">
-        <h2 className="text-gray-900 text-base/7 font-semibold">
+      <div>
+        <h2 className='text-gray-900 text-base/7 font-semibold'>
           Thông tin chung sản phẩm
         </h2>
-        <p className="text-gray-600 mt-1 text-sm/6">
+        <p className='text-gray-600 mt-1 text-sm/6'>
           Use a permanent address where you can receive mail.
         </p>
 
-        <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+        <div className='mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6'>
           {/* Tên sản phẩm */}
-          <div className="sm:col-span-3">
+          <div className='sm:col-span-3'>
             <label
-              htmlFor="name"
-              className="text-gray-900 block text-sm/6 font-medium"
+              htmlFor='name'
+              className='text-gray-900 block text-sm/6 font-medium'
             >
               Tên sản phẩm
             </label>
-            <div className="mt-2">
+            <div className='mt-2'>
               <input
-                id="name"
-                name="name"
+                id='name'
+                name='name'
                 defaultValue={product?.name}
-                type="text"
-                className="text-gray-900 outline-gray-300 placeholder:text-gray-400 block w-full rounded-md bg-white px-3 py-1.5 text-base outline-1 -outline-offset-1 focus:outline-2 focus:-outline-offset-2 focus:outline-primary sm:text-sm/6"
+                type='text'
+                className='text-gray-900 outline-gray-300 placeholder:text-gray-400 block w-full rounded-md bg-white px-3 py-1.5 text-base outline-1 -outline-offset-1 focus:outline-2 focus:-outline-offset-2 focus:outline-primary sm:text-sm/6'
                 required
               />
             </div>
           </div>
 
           {/* Slug */}
-          <div className="sm:col-span-3">
+          <div className='sm:col-span-3'>
             <label
-              htmlFor="slug"
-              className="text-gray-900 block text-sm/6 font-medium"
+              htmlFor='slug'
+              className='text-gray-900 block text-sm/6 font-medium'
             >
               Slug
             </label>
-            <div className="mt-2">
+            <div className='mt-2'>
               <input
                 defaultValue={product?.slug}
-                id="slug"
-                name="slug"
-                type="text"
-                className="text-gray-900 outline-gray-300 placeholder:text-gray-400 block w-full rounded-md bg-white px-3 py-1.5 text-base outline-1 -outline-offset-1 focus:outline-2 focus:-outline-offset-2 focus:outline-primary sm:text-sm/6"
+                id='slug'
+                name='slug'
+                type='text'
+                className='text-gray-900 outline-gray-300 placeholder:text-gray-400 block w-full rounded-md bg-white px-3 py-1.5 text-base outline-1 -outline-offset-1 focus:outline-2 focus:-outline-offset-2 focus:outline-primary sm:text-sm/6'
                 required
               />
             </div>
           </div>
 
           {/* Giá hiện tại */}
-          <div className="sm:col-span-3">
+          <div className='sm:col-span-3'>
             <label
-              htmlFor="currentPrice"
-              className="text-gray-900 block text-sm/6 font-medium"
+              htmlFor='currentPrice'
+              className='text-gray-900 block text-sm/6 font-medium'
             >
               Giá hiện tại
             </label>
-            <div className="mt-2">
+            <div className='mt-2'>
               <input
-                defaultValue={product?.currentPrice ?? ""}
-                id="currentPrice"
-                name="currentPrice"
-                type="number"
-                className="text-gray-900 outline-gray-300 placeholder:text-gray-400 block w-full rounded-md bg-white px-3 py-1.5 text-base outline-1 -outline-offset-1 focus:outline-2 focus:-outline-offset-2 focus:outline-primary sm:text-sm/6"
+                defaultValue={product?.currentPrice ?? ''}
+                id='currentPrice'
+                name='currentPrice'
+                type='number'
+                className='text-gray-900 outline-gray-300 placeholder:text-gray-400 block w-full rounded-md bg-white px-3 py-1.5 text-base outline-1 -outline-offset-1 focus:outline-2 focus:-outline-offset-2 focus:outline-primary sm:text-sm/6'
                 required
               />
             </div>
           </div>
 
           {/* Giá trước đây */}
-          <div className="sm:col-span-3">
+          <div className='sm:col-span-3'>
             <label
-              htmlFor="previousPrice"
-              className="text-gray-900 block text-sm/6 font-medium"
+              htmlFor='previousPrice'
+              className='text-gray-900 block text-sm/6 font-medium'
             >
               Giá trước đây
             </label>
-            <div className="mt-2">
+            <div className='mt-2'>
               <input
-                defaultValue={product?.previousPrice ?? ""}
-                id="previousPrice"
-                name="previousPrice"
-                type="number"
-                className="text-gray-900 outline-gray-300 placeholder:text-gray-400 block w-full rounded-md bg-white px-3 py-1.5 text-base outline-1 -outline-offset-1 focus:outline-2 focus:-outline-offset-2 focus:outline-primary sm:text-sm/6"
+                defaultValue={product?.previousPrice ?? ''}
+                id='previousPrice'
+                name='previousPrice'
+                type='number'
+                className='text-gray-900 outline-gray-300 placeholder:text-gray-400 block w-full rounded-md bg-white px-3 py-1.5 text-base outline-1 -outline-offset-1 focus:outline-2 focus:-outline-offset-2 focus:outline-primary sm:text-sm/6'
               />
             </div>
           </div>
 
           {/* Danh mục sản phẩm */}
-          {/* <div className="sm:col-span-3">
-                <label
-                  htmlFor="category"
-                  className="block text-sm/6 font-medium text-gray-900"
-                >
-                  Danh mục
-                </label>
-                <div className="mt-2">
-                  <input
-                    id="category"
-                    name="category"
-                    type="text"
-                    className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-primary sm:text-sm/6"
-                    required
-                  />
-                </div>
-              </div> */}
+          <div className='sm:col-span-3'>
+            <label
+              htmlFor='category'
+              className='block text-sm/6 font-medium text-gray-900'
+            >
+              Danh mục
+            </label>
+            <div className='mt-2'>
+              <select
+                id='category'
+                name='categoryId'
+                className='block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-primary sm:text-sm/6'
+                defaultValue={product?.categoryId ?? undefined}
+              >
+                <option value=''>Chọn danh mục</option>
+                {categories.map((category) => (
+                  <option key={category.id} value={category.id}>
+                    {category.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
 
           {/* Đánh giá */}
-          <div className="sm:col-span-3">
+          <div className='sm:col-span-3'>
             <label
-              htmlFor="rating"
-              className="text-gray-900 block text-sm/6 font-medium"
+              htmlFor='rating'
+              className='text-gray-900 block text-sm/6 font-medium'
             >
               Đánh giá (1-5)
             </label>
-            <div className="mt-2">
+            <div className='mt-2'>
               <input
-                id="rating"
-                name="rating"
-                type="number"
+                id='rating'
+                name='rating'
+                type='number'
                 defaultValue={product?.rating}
-                step="0.1"
-                min="1"
-                max="5"
-                className="text-gray-900 outline-gray-300 placeholder:text-gray-400 block w-full rounded-md bg-white px-3 py-1.5 text-base outline-1 -outline-offset-1 focus:outline-2 focus:-outline-offset-2 focus:outline-primary sm:text-sm/6"
+                step='0.1'
+                min='1'
+                max='5'
+                className='text-gray-900 outline-gray-300 placeholder:text-gray-400 block w-full rounded-md bg-white px-3 py-1.5 text-base outline-1 -outline-offset-1 focus:outline-2 focus:-outline-offset-2 focus:outline-primary sm:text-sm/6'
                 required
               />
             </div>
           </div>
 
           {/* Số lượng đã bán */}
-          <div className="sm:col-span-3">
+          <div className='sm:col-span-3'>
             <label
-              htmlFor="piecesSold"
-              className="text-gray-900 block text-sm/6 font-medium"
+              htmlFor='piecesSold'
+              className='text-gray-900 block text-sm/6 font-medium'
             >
               Số lượng đã bán
             </label>
-            <div className="mt-2">
+            <div className='mt-2'>
               <input
                 defaultValue={product?.piecesSold}
-                id="piecesSold"
-                name="piecesSold"
-                type="number"
-                className="text-gray-900 outline-gray-300 placeholder:text-gray-400 block w-full rounded-md bg-white px-3 py-1.5 text-base outline-1 -outline-offset-1 focus:outline-2 focus:-outline-offset-2 focus:outline-primary sm:text-sm/6"
+                id='piecesSold'
+                name='piecesSold'
+                type='number'
+                className='text-gray-900 outline-gray-300 placeholder:text-gray-400 block w-full rounded-md bg-white px-3 py-1.5 text-base outline-1 -outline-offset-1 focus:outline-2 focus:-outline-offset-2 focus:outline-primary sm:text-sm/6'
               />
             </div>
           </div>
 
           {/* Tóm tắt sản phẩm */}
-          <div className="sm:col-span-6">
+          <div className='sm:col-span-6'>
             <label
-              htmlFor="overview"
-              className="text-gray-900 block text-sm/6 font-medium"
+              htmlFor='overview'
+              className='text-gray-900 block text-sm/6 font-medium'
             >
               Tóm tắt sản phẩm
             </label>
-            <div className="mt-2">
+            <div className='mt-2'>
               <textarea
-                defaultValue={product?.overview ?? ""}
-                id="overview"
-                name="overview"
+                defaultValue={product?.overview ?? ''}
+                id='overview'
+                name='overview'
                 rows={4}
-                className="text-gray-900 outline-gray-300 placeholder:text-gray-400 block w-full rounded-md bg-white px-3 py-1.5 text-base outline-1 -outline-offset-1 focus:outline-2 focus:-outline-offset-2 focus:outline-primary sm:text-sm/6"
+                className='text-gray-900 outline-gray-300 placeholder:text-gray-400 block w-full rounded-md bg-white px-3 py-1.5 text-base outline-1 -outline-offset-1 focus:outline-2 focus:-outline-offset-2 focus:outline-primary sm:text-sm/6'
               />
             </div>
           </div>
@@ -352,24 +364,24 @@ const Form = ({ handleSubmit, product, type = "CREATE" }: Props) => {
             </div>
           </div> */}
 
-      <div className="mt-6 flex items-center justify-end gap-x-6">
+      <div className='mt-6 flex items-center justify-end gap-x-6'>
         <Link
-          href="/manager/product"
-          type="button"
-          className="text-gray-900 px-4 py-2 text-sm/6 font-semibold"
+          href='/manager/product'
+          type='button'
+          className='text-gray-900 px-4 py-2 text-sm/6 font-semibold'
         >
           Cancel
         </Link>
         <button
-          type="submit"
-          className="hover:bg-primary-dark rounded-md bg-primary px-4 py-2 text-white disabled:bg-primary/60"
+          type='submit'
+          className='hover:bg-primary-dark rounded-md bg-primary px-4 py-2 text-white disabled:bg-primary/60'
           disabled={isPending}
         >
-          {type === "CREATE" ? "Create" : "Update"}
+          {type === 'CREATE' ? 'Create' : 'Update'}
         </button>
       </div>
     </form>
-  );
-};
+  )
+}
 
-export default Form;
+export default Form

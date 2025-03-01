@@ -1,36 +1,38 @@
-import { eq } from "drizzle-orm";
-import { revalidatePath } from "next/cache";
-import { notFound } from "next/navigation";
+import { eq } from 'drizzle-orm'
+import { revalidatePath } from 'next/cache'
+import { notFound } from 'next/navigation'
 
-import { db } from "@/config/db";
-import { type Product, product } from "@/config/db/schema";
-import { LINKS, type SUBMIT_RESPONSE, TOAST_TYPE } from "@/utils/AppConfig";
+import { db } from '@/config/db'
+import { category, type Product, product } from '@/config/db/schema'
+import { LINKS, type SUBMIT_RESPONSE, TOAST_TYPE } from '@/utils/AppConfig'
 
-import { update } from "../../create/submit";
-import Form from "../../form";
-import UpdateImage from "./UpdateImage";
-import { deleteFile, uploadImage } from "./upload";
+import { update } from '../../create/submit'
+import Form from '../../form'
+import UpdateImage from './UpdateImage'
+import { deleteFile, uploadImage } from './upload'
+import ProductAttribute from './ProductAttribute'
 
 type Props = {
-  params: Promise<{ id: number }>;
-};
+  params: Promise<{ id: number }>
+}
 
 const getProductById = async (id: number) => {
   const result = await db
     .select()
     .from(product)
     .where(eq(product.id, id))
-    .limit(1);
+    .limit(1)
 
-  return result[0]; // Trả về sản phẩm đầu tiên (nếu có)
-};
+  return result[0] // Trả về sản phẩm đầu tiên (nếu có)
+}
 
 const page = async ({ params }: Props) => {
-  const { id } = await params;
-  const productDB = await getProductById(id);
+  const { id } = await params
+  const productDB = await getProductById(id)
+  const categories = await db.select().from(category)
 
   if (!productDB) {
-    return notFound();
+    return notFound()
   }
 
   const handleUploadMainImage = async (
@@ -38,12 +40,12 @@ const page = async ({ params }: Props) => {
     isCoverImage: boolean,
     _productDB: Product
   ) => {
-    "use server";
+    'use server'
 
-    const res = await uploadImage(file);
+    const res = await uploadImage(file)
     const shots = productDB.shots
       ? (productDB.shots as unknown as string[])
-      : [];
+      : []
 
     if (res.type === TOAST_TYPE.SUCCESS) {
       // upload main photo
@@ -51,7 +53,7 @@ const page = async ({ params }: Props) => {
         await db
           .update(product)
           .set({ coverImage: res.data })
-          .where(eq(product.id, id));
+          .where(eq(product.id, id))
       }
 
       // upload additional photo
@@ -59,64 +61,69 @@ const page = async ({ params }: Props) => {
         await db
           .update(product)
           .set({ shots: [...shots, res.data] })
-          .where(eq(product.id, id));
+          .where(eq(product.id, id))
       }
     }
 
-    revalidatePath(LINKS.EDIT_PRODUCT(productDB.id));
+    revalidatePath(LINKS.EDIT_PRODUCT(productDB.id))
 
-    return res;
-  };
+    return res
+  }
 
   const onDelete = async (
     url: string,
     isCoverImage: boolean,
     productParams: Product
   ) => {
-    "use server";
+    'use server'
 
     const shots = productParams.shots
       ? (productParams.shots as unknown as string[])
-      : [];
-
-    console.log(shots);
+      : []
 
     if (isCoverImage) {
-      await db
-        .update(product)
-        .set({ coverImage: "" })
-        .where(eq(product.id, id));
+      await db.update(product).set({ coverImage: '' }).where(eq(product.id, id))
     }
 
     if (!isCoverImage) {
       await db
         .update(product)
         .set({ shots: shots.filter((shot) => shot !== url) })
-        .where(eq(product.id, id));
+        .where(eq(product.id, id))
     }
 
-    await deleteFile(url);
-    revalidatePath(LINKS.EDIT_PRODUCT(productParams.id));
-  };
+    await deleteFile(url)
+    revalidatePath(LINKS.EDIT_PRODUCT(productParams.id))
+  }
 
   const handUpdate = async (
     formData: FormData,
     oldProduct?: Product
   ): Promise<SUBMIT_RESPONSE> => {
-    "use server";
+    'use server'
 
-    const res = await update(formData, oldProduct?.id ?? id);
+    const res = await update(formData, oldProduct?.id ?? id)
 
-    return res;
-  };
+    return res
+  }
+
+  const handleChangeAttribute = async (
+    attributes: Record<string, string[]>,
+    p: Product
+  ) => {
+    'use server'
+
+    await db.update(product).set({ attributes }).where(eq(product.id, p.id))
+    revalidatePath(LINKS.EDIT_PRODUCT(p.id))
+  }
 
   return (
-    <div className="container my-4">
-      <div className="border-gray-900/10 border-b pb-4">
-        <h2 className="text-gray-900 text-base/7 font-semibold">
+    <div className='container my-4'>
+      <div className='border-gray-900/10 border-b pb-4'>
+        <h2 className='text-gray-900 text-base/7 font-semibold'>
           Chỉnh sửa sản phẩm
         </h2>
-        <p className="text-gray-600 mt-1 text-sm/6">
+        <p className='text-gray-600 mt-1 text-sm/6'>
           This information will be displayed publicly so be careful what you
           share.
         </p>
@@ -129,11 +136,23 @@ const page = async ({ params }: Props) => {
         onDelete={onDelete}
       />
 
-      <div className="mt-4">
-        <Form product={productDB} handleSubmit={handUpdate} type="UPDATE" />
+      <div className='mt-4 border-gray-900/10 border-b pb-12'>
+        <Form
+          product={productDB}
+          handleSubmit={handUpdate}
+          type='UPDATE'
+          categories={categories}
+        />
+      </div>
+
+      <div className='mt-8'>
+        <ProductAttribute
+          product={productDB}
+          onChange={handleChangeAttribute}
+        />
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default page;
+export default page

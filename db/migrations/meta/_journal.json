@@ -71,6 +71,27 @@
       "when": 1740817297685,
       "tag": "0009_panoramic_tenebrous",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "5",
+      "when": 1740821843377,
+      "tag": "0010_plain_morph",
+      "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "5",
+      "when": 1740822218228,
+      "tag": "0011_sturdy_xorn",
+      "breakpoints": true
+    },
+    {
+      "idx": 12,
+      "version": "5",
+      "when": 1740822239213,
+      "tag": "0012_narrow_black_knight",
+      "breakpoints": true
     }
   ]
 }

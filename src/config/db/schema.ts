@@ -25,6 +25,8 @@ export const category = mysqlTable('category', {
   slug: varchar('slug', { length: 255 }).notNull().unique()
 })
 
+export type Category = typeof category.$inferSelect
+
 export const product = mysqlTable('product', {
   id: int('id').primaryKey().autoincrement(),
   slug: varchar('slug', { length: 255 }).notNull().unique(),
@@ -41,7 +43,8 @@ export const product = mysqlTable('product', {
   justIn: boolean('just_in').default(false),
   shots: json('shots'),
   overview: text('overview'),
-  shipmentDetails: json('shipment_details')
+  shipmentDetails: json('shipment_details'),
+  attributes: json('attributes') // Trường JSON chứa thông tin thuộc tính sản phẩm
 })
 
 export const cart = mysqlTable('cart', {
@@ -80,6 +83,7 @@ export const orders = mysqlTable('orders', {
   status: varchar('status', { length: 50 }).notNull().default('pending'), // Trạng thái đơn hàng
   totalPrice: float('total_price').notNull(), // Tổng giá trị đơn hàng
   notes: text('notes'), // Ghi chú chung về đơn hàng
+  productAttributes: json('product_attributes'), // Trường JSON chứa thông tin thuộc tính sản phẩm
   createdAt: timestamp('created_at').defaultNow(), // Thời gian tạo đơn hàng
   updatedAt: timestamp('updated_at').onUpdateNow() // Thời gian cập nhật đơn hàng
 })

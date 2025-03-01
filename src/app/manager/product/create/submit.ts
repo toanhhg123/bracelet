@@ -1,43 +1,43 @@
-"use server";
+'use server'
 
-import { eq } from "drizzle-orm";
-import { revalidatePath } from "next/cache";
+import { eq } from 'drizzle-orm'
+import { revalidatePath } from 'next/cache'
 
-import { db } from "@/config/db";
-import { type Product, product } from "@/config/db/schema";
-import { LINKS, type SUBMIT_RESPONSE, TOAST_TYPE } from "@/utils/AppConfig";
+import { db } from '@/config/db'
+import { type Product, product } from '@/config/db/schema'
+import { LINKS, type SUBMIT_RESPONSE, TOAST_TYPE } from '@/utils/AppConfig'
 
 export async function create(form: FormData): Promise<SUBMIT_RESPONSE> {
-  const data = Object.fromEntries(form) as unknown as Product;
+  const data = Object.fromEntries(form) as unknown as Product
 
   try {
     await db.insert(product).values({
       name: data.name,
       slug: data.slug,
-      coverImage: "",
+      coverImage: '',
       currentPrice: data.currentPrice,
       previousPrice: data.previousPrice,
-      category: null,
       rating: data.rating,
       reviews: 0,
       piecesSold: data.piecesSold,
       justIn: data.justIn,
       overview: data.overview,
-    });
+      categoryId: data.categoryId ? data.categoryId : null
+    })
 
     // Làm mới cache của trang quản lí sản phẩm
-    revalidatePath(LINKS.MANAGER_PRODUCT);
+    revalidatePath(LINKS.MANAGER_PRODUCT)
 
     return {
       type: TOAST_TYPE.SUCCESS,
-      message: "Tạo sản phẩm thành công",
-    };
+      message: 'Tạo sản phẩm thành công'
+    }
   } catch (error) {
-    console.log("error :::: ", error);
+    console.log('error :::: ', error)
     return {
       type: TOAST_TYPE.ERROR,
-      message: "Tạo sản phẩm thất bại",
-    };
+      message: 'Tạo sản phẩm thất bại'
+    }
   }
 }
 
@@ -45,7 +45,7 @@ export const update = async (
   form: FormData,
   id: number
 ): Promise<SUBMIT_RESPONSE> => {
-  const data = Object.fromEntries(form) as unknown as Product;
+  const data = Object.fromEntries(form) as unknown as Product
 
   try {
     await db
@@ -58,21 +58,22 @@ export const update = async (
         rating: data.rating,
         piecesSold: data.piecesSold,
         overview: data.overview,
+        categoryId: data.categoryId ? data.categoryId : null
       })
-      .where(eq(product.id, id));
+      .where(eq(product.id, id))
 
     // Làm mới cache của trang quản lí sản phẩm
-    revalidatePath(LINKS.MANAGER_PRODUCT);
+    revalidatePath(LINKS.MANAGER_PRODUCT)
 
     return {
       type: TOAST_TYPE.SUCCESS,
-      message: "thành công",
-    };
+      message: 'thành công'
+    }
   } catch (error) {
-    console.log("error :::: ", error);
+    console.log('error :::: ', error)
     return {
       type: TOAST_TYPE.ERROR,
-      message: "cập nhật sản phẩm thất bại",
-    };
+      message: 'cập nhật sản phẩm thất bại'
+    }
   }
-};
+}
