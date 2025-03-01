@@ -35,7 +35,7 @@ const Page = async ({ params }: Props) => {
         name: product.name,
         coverImage: product.coverImage,
         currentPrice: product.currentPrice,
-        category: product.category,
+        category: product.categoryId,
         rating: product.rating,
         reviews: product.reviews,
         piecesSold: product.piecesSold,

@@ -35,7 +35,10 @@ export const LINKS = {
   ORDER_MANAGER: '/manager/order',
   NOT_FOUND: '/404',
   CHECK_OUT_SUCCESS: '/checkout-success',
-  ORDER_DETAILS: (id: number | string) => `/manager/order/${id}`
+  ORDER_DETAILS: (id: number | string) => `/manager/order/${id}`,
+  CATEGORY_MANAGER: '/manager/category',
+  CREATE_CATEGORY: '/manager/category/create',
+  EDIT_CATEGORY: (id: number | string) => `/manager/category/edit/${id}`
 }
 
 export const ALL_PAGES = Object.values(LINKS).filter(
