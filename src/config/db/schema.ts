@@ -57,6 +57,7 @@ export const cart = mysqlTable('cart', {
     .references(() => product.id),
   quantity: int('quantity').notNull().default(1),
   totalPrice: float('total_price').notNull(),
+  productAttributes: json('product_attributes'), // Trường JSON chứa thông tin thuộc tính sản phẩm
   createdAt: timestamp('created_at').defaultNow(),
   updatedAt: timestamp('updated_at').onUpdateNow()
 })

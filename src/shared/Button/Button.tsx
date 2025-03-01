@@ -60,7 +60,7 @@ const Button: FC<ButtonProps> = ({
   if (href) {
     return (
       <Link href={href} className={`${CLASSES}`} onClick={onClick}>
-        {children || `This is Link`}
+        {children || 'This is Link'}
       </Link>
     )
   }
@@ -74,7 +74,7 @@ const Button: FC<ButtonProps> = ({
       type={type ?? 'button'}
     >
       {loading && renderLoading()}
-      {children || `This is Button`}
+      {children || 'This is Button'}
     </button>
   )
 }

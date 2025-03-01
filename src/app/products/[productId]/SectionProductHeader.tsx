@@ -2,7 +2,6 @@ import { and, eq } from 'drizzle-orm'
 import Image from 'next/image'
 import type { FC } from 'react'
 import { GoDotFill } from 'react-icons/go'
-import { LuInfo } from 'react-icons/lu'
 import { MdStar } from 'react-icons/md'
 import { PiSealCheckFill } from 'react-icons/pi'
 
@@ -16,7 +15,6 @@ import {
 } from '@/config/db/schema'
 import nike_profile from '@/images/nike_profile.jpg'
 import ButtonCircle3 from '@/shared/Button/ButtonCircle3'
-import ButtonPrimary from '@/shared/Button/ButtonPrimary'
 import Heading from '@/shared/Heading/Heading'
 import {
   formatCurrency,
@@ -43,12 +41,13 @@ const SectionProductHeader: FC<SectionProductHeaderProps> = ({
     previousPrice,
     currentPrice,
     id,
-    overview,
     piecesSold
   } = product
 
   const handleAddToCart = async (
-    productId: number
+    productId: number,
+    attributes: Record<string, string>,
+    quantity: number
   ): Promise<SUBMIT_RESPONSE> => {
     'use server'
 
@@ -91,8 +90,9 @@ const SectionProductHeader: FC<SectionProductHeaderProps> = ({
     await db.insert(cart).values({
       userId: user.id,
       productId: productDB.id,
-      quantity: 1,
+      quantity,
       totalPrice: productDB.currentPrice,
+      productAttributes: attributes,
       createdAt: new Date(),
       updatedAt: new Date()
     })
@@ -150,22 +150,11 @@ const SectionProductHeader: FC<SectionProductHeaderProps> = ({
           </h1>
         </div>
 
-        <div className='mb-5 flex items-end justify-between'>
-          <p className='text-xl'>Kích thước có sẵn</p>
-          <p className='flex items-center gap-1 text-sm text-neutral-500'>
-            Hướng dẫn chọn size <LuInfo />
-          </p>
-        </div>
-
-        <div className='mt-2'>
-          <h6>Ghi chú: </h6>
-          <p className='mt-2 text-sm'>{overview}</p>
-        </div>
-
-        <div className='mt-5 flex items-center gap-5'>
-          <ButtonPrimary className='w-full'>Mua ngay</ButtonPrimary>
-          <AddToCart productId={id} handleAddToCart={handleAddToCart} />
-        </div>
+        <AddToCart
+          product={product}
+          productId={id}
+          handleAddToCart={handleAddToCart}
+        />
       </div>
     </div>
   )
