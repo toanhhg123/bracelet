@@ -19,6 +19,12 @@ export const users = mysqlTable('users', {
   avatar: varchar('avatar', { length: 255 })
 })
 
+export const category = mysqlTable('category', {
+  id: int('id').primaryKey().autoincrement(),
+  name: varchar('name', { length: 255 }).notNull().unique(),
+  slug: varchar('slug', { length: 255 }).notNull().unique()
+})
+
 export const product = mysqlTable('product', {
   id: int('id').primaryKey().autoincrement(),
   slug: varchar('slug', { length: 255 }).notNull().unique(),
@@ -26,7 +32,9 @@ export const product = mysqlTable('product', {
   coverImage: varchar('cover_image', { length: 500 }).notNull(),
   currentPrice: float('current_price').notNull(),
   previousPrice: float('previous_price'),
-  category: varchar('category', { length: 255 }),
+  categoryId: int('category_id').references(() => category.id, {
+    onDelete: 'cascade'
+  }),
   rating: float('rating').notNull(),
   reviews: int('reviews').notNull(),
   piecesSold: int('pieces_sold').notNull(),

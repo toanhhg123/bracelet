@@ -82,12 +82,15 @@ const OrdersPage = async () => {
                     currency: 'VND'
                   })}
                 </td>
-
-                <OrderStatus
-                  order={order}
-                  handleChangeStatus={handleChangeStatus}
-                />
-                <OrderAction order={order} handleDelete={handleDelete} />
+                <td className='text-gray-900 whitespace-nowrap px-6 py-4 text-sm'>
+                  <OrderStatus
+                    order={order}
+                    handleChangeStatus={handleChangeStatus}
+                  />
+                </td>
+                <td>
+                  <OrderAction order={order} handleDelete={handleDelete} />
+                </td>
               </tr>
             ))}
           </tbody>

@@ -1,17 +1,20 @@
 // app/orders/[id]/page.tsx
 import { eq } from 'drizzle-orm'
+import { revalidatePath } from 'next/cache'
 import Image from 'next/image'
 
 import { db } from '@/config/db'
 import { orderItems, orders, product } from '@/config/db/schema'
-import { IMAGES, renderUploadImage } from '@/utils/AppConfig'
+import { IMAGES, LINKS, renderUploadImage } from '@/utils/AppConfig'
+
+import OrderStatus from '../OrderStatus'
 
 type Props = {
-  params: { id: number }
+  params: Promise<{ id: number }>
 }
 
 const Page = async ({ params }: Props) => {
-  const { id } = params
+  const { id } = await params
 
   // Lấy thông tin chi tiết đơn hàng từ cơ sở dữ liệu
   const orderDbs = await db
@@ -67,9 +70,23 @@ const Page = async ({ params }: Props) => {
     updatedAt
   } = order
 
+  const handleChangeStatus = async (orderId: number, statusChange: string) => {
+    'use server'
+
+    await db
+      .update(orders)
+      .set({ status: statusChange })
+      .where(eq(orders.id, orderId))
+
+    revalidatePath(LINKS.ORDER_DETAILS(orderId))
+  }
+
   return (
     <div className='container my-4 rounded-lg bg-white p-6 shadow-md'>
-      <h1 className='mb-4 text-2xl font-bold'>Chi tiết đơn hàng #{id}</h1>
+      <h1 className='mb-4 flex justify-between text-2xl font-bold'>
+        Chi tiết đơn hàng #{id}
+        <OrderStatus order={order} handleChangeStatus={handleChangeStatus} />
+      </h1>
 
       <div className='grid grid-cols-1 gap-6 md:grid-cols-2'>
         {/* Thông tin khách hàng */}
