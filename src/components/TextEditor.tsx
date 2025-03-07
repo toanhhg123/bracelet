@@ -8,15 +8,17 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 const LICENSE_KEY =
   'eyJhbGciOiJFUzI1NiJ9.eyJleHAiOjE3NDIwODMxOTksImp0aSI6ImQxNDg5OWFkLTliNmQtNDllNi05MjA5LWQ3ZDMyZDA2MTYxNCIsInVzYWdlRW5kcG9pbnQiOiJodHRwczovL3Byb3h5LWV2ZW50LmNrZWRpdG9yLmNvbSIsImRpc3RyaWJ1dGlvbkNoYW5uZWwiOlsiY2xvdWQiLCJkcnVwYWwiLCJzaCJdLCJ3aGl0ZUxhYmVsIjp0cnVlLCJsaWNlbnNlVHlwZSI6InRyaWFsIiwiZmVhdHVyZXMiOlsiKiJdLCJ2YyI6IjAyMmNkZGFjIn0._OMNwll4SCIhzjhqs5cBbrnTaxVSzOgn2-p0oP2oy9L-9DsXBTZZnPv7vWXXjFh0WgxM_QXQDvvemSh1tbz_AA'
 
-export function Editor() {
-  const editorContainerRef = useRef<HTMLDivElement>(null)
-  const editorMenuBarRef = useRef<HTMLDivElement>(null)
-  const editorToolbarRef = useRef<HTMLDivElement>(null)
-  const editorRef = useRef<HTMLDivElement>(null)
-  const editorMinimapRef = useRef<HTMLDivElement>(null)
-  const editorWordCountRef = useRef<HTMLDivElement>(null)
+type Props = {
+  value?: string
+  onChange?: (value: string) => void
+}
+
+export function Editor({ value, onChange }: Props) {
+  const editorContainerRef = useRef<any>(null)
+  const editorRef = useRef<any>(null)
+  const editorWordCountRef = useRef<any>(null)
   const [isLayoutReady, setIsLayoutReady] = useState(false)
-  const cloud = useCKEditorCloud({ version: '44.2.1' })
+  const cloud = useCKEditorCloud({ version: '44.3.0' })
 
   useEffect(() => {
     setIsLayoutReady(true)
@@ -24,18 +26,17 @@ export function Editor() {
     return () => setIsLayoutReady(false)
   }, [])
 
-  const { DecoupledEditor, editorConfig } = useMemo(() => {
+  const { ClassicEditor, editorConfig } = useMemo(() => {
     if (cloud.status !== 'success' || !isLayoutReady) {
       return {}
     }
 
     const {
       // eslint-disable-next-line @typescript-eslint/no-shadow
-      DecoupledEditor,
+      ClassicEditor,
       Alignment,
       Autoformat,
       AutoImage,
-      AutoLink,
       Autosave,
       BalloonToolbar,
       Base64UploadAdapter,
@@ -43,6 +44,7 @@ export function Editor() {
       BlockToolbar,
       Bold,
       Bookmark,
+      CloudServices,
       Code,
       CodeBlock,
       Emoji,
@@ -52,6 +54,7 @@ export function Editor() {
       FontColor,
       FontFamily,
       FontSize,
+      FullPage,
       GeneralHtmlSupport,
       Heading,
       Highlight,
@@ -60,7 +63,6 @@ export function Editor() {
       HtmlEmbed,
       ImageBlock,
       ImageCaption,
-      ImageEditing,
       ImageInline,
       ImageInsert,
       ImageInsertViaUrl,
@@ -69,7 +71,6 @@ export function Editor() {
       ImageTextAlternative,
       ImageToolbar,
       ImageUpload,
-      ImageUtils,
       Indent,
       IndentBlock,
       Italic,
@@ -80,13 +81,13 @@ export function Editor() {
       Markdown,
       MediaEmbed,
       Mention,
-      Minimap,
       PageBreak,
       Paragraph,
       PasteFromMarkdownExperimental,
       PasteFromOffice,
       RemoveFormat,
       ShowBlocks,
+      SourceEditing,
       SpecialCharacters,
       SpecialCharactersArrows,
       SpecialCharactersCurrency,
@@ -95,6 +96,7 @@ export function Editor() {
       SpecialCharactersMathematical,
       SpecialCharactersText,
       Strikethrough,
+      Style,
       Subscript,
       Superscript,
       Table,
@@ -112,15 +114,17 @@ export function Editor() {
     } = cloud.CKEditor
 
     return {
-      DecoupledEditor,
+      ClassicEditor,
       editorConfig: {
         toolbar: {
           items: [
+            'sourceEditing',
             'showBlocks',
             'findAndReplace',
             'textPartLanguage',
             '|',
             'heading',
+            'style',
             '|',
             'fontSize',
             'fontFamily',
@@ -143,7 +147,6 @@ export function Editor() {
             'link',
             'bookmark',
             'insertImage',
-            'insertImageViaUrl',
             'mediaEmbed',
             'insertTable',
             'highlight',
@@ -165,7 +168,6 @@ export function Editor() {
           Alignment,
           Autoformat,
           AutoImage,
-          AutoLink,
           Autosave,
           BalloonToolbar,
           Base64UploadAdapter,
@@ -173,6 +175,7 @@ export function Editor() {
           BlockToolbar,
           Bold,
           Bookmark,
+          CloudServices,
           Code,
           CodeBlock,
           Emoji,
@@ -182,6 +185,7 @@ export function Editor() {
           FontColor,
           FontFamily,
           FontSize,
+          FullPage,
           GeneralHtmlSupport,
           Heading,
           Highlight,
@@ -190,7 +194,6 @@ export function Editor() {
           HtmlEmbed,
           ImageBlock,
           ImageCaption,
-          ImageEditing,
           ImageInline,
           ImageInsert,
           ImageInsertViaUrl,
@@ -199,7 +202,6 @@ export function Editor() {
           ImageTextAlternative,
           ImageToolbar,
           ImageUpload,
-          ImageUtils,
           Indent,
           IndentBlock,
           Italic,
@@ -210,13 +212,13 @@ export function Editor() {
           Markdown,
           MediaEmbed,
           Mention,
-          Minimap,
           PageBreak,
           Paragraph,
           PasteFromMarkdownExperimental,
           PasteFromOffice,
           RemoveFormat,
           ShowBlocks,
+          SourceEditing,
           SpecialCharacters,
           SpecialCharactersArrows,
           SpecialCharactersCurrency,
@@ -225,6 +227,7 @@ export function Editor() {
           SpecialCharactersMathematical,
           SpecialCharactersText,
           Strikethrough,
+          Style,
           Subscript,
           Superscript,
           Table,
@@ -374,15 +377,56 @@ export function Editor() {
             }
           ]
         },
-        menuBar: {
-          isVisible: true
-        },
-        minimap: {
-          container: editorMinimapRef.current,
-          extraClasses:
-            'editor-container_include-minimap ck-minimap__iframe-content'
-        },
         placeholder: 'Type or paste your content here!',
+        style: {
+          definitions: [
+            {
+              name: 'Article category',
+              element: 'h3',
+              classes: ['category']
+            },
+            {
+              name: 'Title',
+              element: 'h2',
+              classes: ['document-title']
+            },
+            {
+              name: 'Subtitle',
+              element: 'h3',
+              classes: ['document-subtitle']
+            },
+            {
+              name: 'Info box',
+              element: 'p',
+              classes: ['info-box']
+            },
+            {
+              name: 'Side quote',
+              element: 'blockquote',
+              classes: ['side-quote']
+            },
+            {
+              name: 'Marker',
+              element: 'span',
+              classes: ['marker']
+            },
+            {
+              name: 'Spoiler',
+              element: 'span',
+              classes: ['spoiler']
+            },
+            {
+              name: 'Code (dark)',
+              element: 'pre',
+              classes: ['fancy-code', 'fancy-code-dark']
+            },
+            {
+              name: 'Code (bright)',
+              element: 'pre',
+              classes: ['fancy-code', 'fancy-code-bright']
+            }
+          ]
+        },
         table: {
           contentToolbar: [
             'tableColumn',
@@ -399,57 +443,33 @@ export function Editor() {
   return (
     <div className='main-container'>
       <div
-        className='editor-container editor-container_document-editor editor-container_include-minimap editor-container_include-word-count'
+        className='editor-container editor-container_classic-editor editor-container_include-style editor-container_include-block-toolbar editor-container_include-word-count m-0'
         ref={editorContainerRef}
       >
-        <div className='editor-container__menu-bar' ref={editorMenuBarRef} />
-        <div className='editor-container__toolbar' ref={editorToolbarRef} />
-        <div className='editor-container__minimap-wrapper'>
-          <div className='editor-container__editor-wrapper'>
-            <div className='editor-container__editor'>
-              <div ref={editorRef} className='prose'>
-                {DecoupledEditor && editorConfig && (
-                  <CKEditor
-                    onReady={(editor) => {
-                      const wordCount = editor.plugins.get('WordCount')
-                      editorWordCountRef?.current?.appendChild(
-                        wordCount.wordCountContainer
-                      )
-
-                      editorToolbarRef?.current?.appendChild(
-                        editor.ui.view.toolbar.element as HTMLElement
-                      )
-
-                      editorMenuBarRef.current?.appendChild(
-                        editor.ui.view.menuBarView.element as HTMLElement
-                      )
-                    }}
-                    onAfterDestroy={() => {
-                      // biome-ignore lint/complexity/noForEach: <explanation>
-                      Array.from(
-                        editorWordCountRef.current?.children || []
-                      ).forEach((child) => child.remove())
-
-                      // biome-ignore lint/complexity/noForEach: <explanation>
-                      Array.from(
-                        editorToolbarRef.current?.children || []
-                      ).forEach((child) => child.remove())
-
-                      // biome-ignore lint/complexity/noForEach: <explanation>
-                      Array.from(
-                        editorMenuBarRef.current?.children || []
-                      ).forEach((child) => child.remove())
-                    }}
-                    editor={DecoupledEditor}
-                    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-                    config={editorConfig as any}
-                  />
-                )}
-              </div>
-            </div>
-          </div>
-          <div className='editor-container__sidebar editor-container__sidebar_minimap'>
-            <div ref={editorMinimapRef} />
+        <div className='editor-container__editor prose'>
+          <div ref={editorRef}>
+            {ClassicEditor && editorConfig && (
+              <CKEditor
+                data={value}
+                onReady={(editor) => {
+                  const wordCount = editor.plugins.get('WordCount')
+                  editorWordCountRef?.current?.appendChild(
+                    wordCount.wordCountContainer
+                  )
+                }}
+                onAfterDestroy={() => {
+                  Array.from(
+                    editorWordCountRef?.current?.children || []
+                  ).forEach((child: any) => child.remove())
+                }}
+                editor={ClassicEditor}
+                onChange={(_, editor) => {
+                  const data = editor.getData()
+                  onChange?.(data)
+                }}
+                config={editorConfig as any}
+              />
+            )}
           </div>
         </div>
         <div

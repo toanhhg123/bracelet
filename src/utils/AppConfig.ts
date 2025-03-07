@@ -40,7 +40,8 @@ export const LINKS = {
   ORDER_DETAILS: (id: number | string) => `/manager/order/${id}`,
   CATEGORY_MANAGER: '/manager/category',
   CREATE_CATEGORY: '/manager/category/create',
-  EDIT_CATEGORY: (id: number | string) => `/manager/category/edit/${id}`
+  EDIT_CATEGORY: (id: number | string) => `/manager/category/edit/${id}`,
+  EDIT_BLOG: (id: number | string) => `/manager/blog/${id}`
 }
 
 export const ALL_PAGES = Object.values(LINKS).filter(
@@ -51,7 +52,8 @@ export const IMAGES = {
   NO_IMAGE: '/assets/images/no-image.png'
 }
 
-export const renderUploadImage = (image: string) => {
+export const renderUploadImage = (image?: string | null) => {
+  if (!image) return IMAGES.NO_IMAGE
   return image?.startsWith('http') ? image : `/assets/uploads/${image}`
 }
 

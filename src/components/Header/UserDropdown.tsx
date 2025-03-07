@@ -35,8 +35,8 @@ const options = [
     url: LINKS.ORDER_MANAGER
   },
   {
-    name: 'Quản lí đơn hàng',
-    url: LINKS.ORDER_MANAGER
+    name: 'Quản lí bài viét',
+    url: LINKS.BLOG_MANAGER
   }
 ]
 

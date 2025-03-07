@@ -118,4 +118,20 @@ export const orderItems = mysqlTable('order_items', {
   productDetails: json('product_details') // Thông tin chi tiết về sản phẩm (ví dụ: size, màu sắc)
 })
 
+export const blogs = mysqlTable('blogs', {
+  id: int('id').primaryKey().autoincrement(),
+  title: varchar('title', { length: 255 }).notNull(), // Tiêu đề bài viết, không được để trống
+  content: text('content').notNull(), // Nội dung bài viết, không được để trống
+  author: varchar('author', { length: 100 }), // Tên tác giả, dạng chuỗi
+  createdAt: timestamp('created_at').defaultNow(), // Thời gian tạo bài viết, mặc định là thời gian hiện tại
+  updatedAt: timestamp('updated_at').defaultNow().onUpdateNow(), // Thời gian cập nhật bài viết, mặc định là thời gian hiện tại và cập nhật lại khi có thay đổi
+  tags: json('tags'),
+  image: varchar('image', { length: 255 }), // Đường dẫn tới hình ảnh
+  slug: varchar('slug', { length: 255 }).unique(), // Slug cho URL, duy nhất
+  views: int('views').default(0)
+})
+
+export type Blog = typeof blogs.$inferSelect
+export type BlogCreate = typeof blogs.$inferInsert
+
 export type OrderItem = typeof orderItems.$inferSelect
