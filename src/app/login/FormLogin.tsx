@@ -19,7 +19,6 @@ const FormLogin = ({ login }: Props) => {
   const router = useRouter()
 
   const onSubmit = (formData: FormData) => {
-    console.log({ formData })
     startTransition(async () => {
       const response = await login(formData)
       toast[response.type](response.message)

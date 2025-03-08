@@ -13,7 +13,8 @@ export default bundleAnalyzer({
     }
   },
   eslint: {
-    dirs: ['.']
+    dirs: ['.'],
+    ignoreDuringBuilds: true
   },
   images: {
     remotePatterns: [

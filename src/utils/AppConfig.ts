@@ -35,6 +35,7 @@ export const LINKS = {
   USER_MANAGER: '/user-manager',
   ORDER_MANAGER: '/manager/order',
   BLOG_MANAGER: '/manager/blog',
+  CHECK_OUT: '/checkout',
   NOT_FOUND: '/404',
   CHECK_OUT_SUCCESS: '/checkout-success',
   ORDER_DETAILS: (id: number | string) => `/manager/order/${id}`,

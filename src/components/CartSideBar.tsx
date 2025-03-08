@@ -8,44 +8,50 @@ import { AiOutlineDelete } from 'react-icons/ai'
 import { FaBagShopping } from 'react-icons/fa6'
 import { MdClose, MdStar } from 'react-icons/md'
 
-import { shoes } from '@/data/content'
-import type { ProductType } from '@/data/types'
+import type { CartItem } from '@/app/cart/action'
 import ButtonCircle3 from '@/shared/Button/ButtonCircle3'
 import ButtonPrimary from '@/shared/Button/ButtonPrimary'
 import ButtonSecondary from '@/shared/Button/ButtonSecondary'
 import InputNumber from '@/shared/InputNumber/InputNumber'
+import { LINKS, renderUploadImage } from '@/utils/AppConfig'
 
 import LikeButton from './LikeButton'
 
-const CartSideBar = () => {
+interface Props {
+  isLogin?: boolean
+  carts: CartItem[]
+}
+
+const CartSideBar = ({ isLogin, carts }: Props) => {
   const [isVisable, setIsVisable] = useState(false)
 
   const handleOpenMenu = () => setIsVisable(true)
   const handleCloseMenu = () => setIsVisable(false)
 
-  const renderProduct = (item: ProductType) => {
+  const renderProduct = (item: CartItem) => {
     const {
       name: shoeName,
       coverImage,
       currentPrice,
       slug,
       rating,
-      shoeCategory
-    } = item
+      piecesSold
+    } = item.product
 
     return (
       <div key={shoeName} className='flex py-5 last:pb-0'>
         <div className='relative size-24 shrink-0 overflow-hidden rounded'>
           <Image
-            fill
-            src={coverImage}
+            src={renderUploadImage(coverImage)}
             alt={shoeName}
+            width={200}
+            height={200}
             className='size-full object-contain object-center'
           />
           <Link
             onClick={handleCloseMenu}
             className='absolute inset-0'
-            href={`/products/${slug}`}
+            href={LINKS.PRODUCT(slug)}
           />
         </div>
 
@@ -53,20 +59,22 @@ const CartSideBar = () => {
           <div>
             <div className='flex justify-between '>
               <div>
-                <h3 className='font-medium '>
-                  <Link onClick={handleCloseMenu} href={`/products/${slug}`}>
+                <h3 className='max-w-[180px] truncate font-medium'>
+                  <Link onClick={handleCloseMenu} href={LINKS.PRODUCT(slug)}>
                     {shoeName}
                   </Link>
                 </h3>
                 <span className='my-1 text-sm text-neutral-500'>
-                  {shoeCategory}
+                  {piecesSold}
                 </span>
                 <div className='flex items-center gap-1'>
                   <MdStar className='text-yellow-400' />
                   <span className='text-sm'>{rating}</span>
                 </div>
               </div>
-              <span className=' font-medium'>${currentPrice}</span>
+              <span className=' font-medium'>
+                {currentPrice?.toLocaleString()}
+              </span>
             </div>
           </div>
           <div className='flex w-full items-end justify-between text-sm'>
@@ -112,7 +120,13 @@ const CartSideBar = () => {
                         </ButtonCircle3>
                       </div>
                       <div className='divide-y divide-neutral-300'>
-                        {shoes.slice(0, 2).map((item) => renderProduct(item))}
+                        {!isLogin ? (
+                          <div className='mt-10 px-10 text-2xl font-bold text-yellow-600'>
+                            Vui lòng đăng nhập
+                          </div>
+                        ) : (
+                          carts.map((item) => renderProduct(item))
+                        )}
                       </div>
                     </div>
                     <div className='absolute bottom-0 left-0 w-full bg-neutral-50 p-5'>
@@ -123,22 +137,21 @@ const CartSideBar = () => {
                             Shipping and taxes calculated at checkout.
                           </span>
                         </span>
-                        <span className='text-xl font-medium'>$597</span>
                       </p>
                       <div className='mt-5 flex items-center gap-5'>
                         <ButtonPrimary
-                          href='/checkout'
+                          href={LINKS.CHECK_OUT}
                           onClick={handleCloseMenu}
                           className='w-full flex-1'
                         >
-                          Checkout
+                          Thanh toán
                         </ButtonPrimary>
                         <ButtonSecondary
                           onClick={handleCloseMenu}
-                          href='/cart'
+                          href={LINKS.CART}
                           className='w-full flex-1 border-2 border-primary text-primary'
                         >
-                          View cart
+                          Giỏ hàng
                         </ButtonSecondary>
                       </div>
                     </div>
@@ -172,7 +185,7 @@ const CartSideBar = () => {
         className='mx-5 flex items-center gap-1 rounded bg-neutral-100 p-2 text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75'
       >
         <FaBagShopping className='text-2xl' />
-        <span className='hidden text-sm lg:block'>3 items</span>
+        <span className='hidden text-sm lg:block'>{carts.length} sản phẩm</span>
       </button>
 
       {renderContent()}
