@@ -16,6 +16,7 @@ export default bundleAnalyzer({
     dirs: ['.'],
     ignoreDuringBuilds: true
   },
+  output: 'standalone',
   images: {
     remotePatterns: [
       {
