@@ -56,7 +56,5 @@ local
 # vercel
 .vercel
 
-yarn.lock
-
 
 public/assets/uploads/
