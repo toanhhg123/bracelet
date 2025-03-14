@@ -11,3 +11,5 @@ services:
       - PORT=3000
       - HOSTNAME=0.0.0.0
     restart: unless-stopped
+    volumes:
+      - ./public/assets/uploads:/app/public/assets/uploads
