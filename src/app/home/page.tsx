@@ -1,6 +1,7 @@
 import SectionBestDeals from './SectionBestDeals'
 import SectionHeader from './SectionHeader'
 import SectionProducts from './SectionProducts'
+import SectionTestimonials from './SectionTestimonials'
 
 const page = async () => {
   return (
@@ -17,9 +18,10 @@ const page = async () => {
         <SectionProducts />
       </div>
 
-      {/* <div className="mb-32">
-        <SectionBrands />
-      </div> */}
+      <div className='mb-32'>
+        <SectionTestimonials />
+      </div>
+
     </div>
   )
 }

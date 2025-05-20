@@ -1,10 +1,10 @@
 import Link from 'next/link'
-import React from 'react'
+import type React from 'react'
 
 import { footerData } from '@/data/content'
 
 import Logo from '../Logo/Logo'
-import Subscribe from './Subscribe'
+
 
 const Footer: React.FC = () => {
   return (
@@ -18,7 +18,6 @@ const Footer: React.FC = () => {
           <div className='space-y-10 md:pr-20'>
             <Logo className='block' />
             <p className=''>{footerData.description}</p>
-            <Subscribe />
           </div>
 
           <div className='grid grid-cols-2 gap-5 md:grid-cols-3'>

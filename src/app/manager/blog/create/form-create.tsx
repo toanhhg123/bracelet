@@ -1,10 +1,10 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import toast from 'react-hot-toast'
 
-import { Editor } from '@/components/TextEditor'
+import Editor  from '@/components/TextEditor'
 import type { BlogCreate } from '@/config/db/schema'
 import ButtonPrimary from '@/shared/Button/ButtonPrimary'
 import { LINKS, type SUBMIT_RESPONSE } from '@/utils/AppConfig'

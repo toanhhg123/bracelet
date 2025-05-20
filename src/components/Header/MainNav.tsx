@@ -30,7 +30,7 @@ const MainNav = async () => {
           <Input
             type='text'
             className='border-transparent bg-white placeholder:text-neutral-500 focus:border-transparent'
-            placeholder="try 'Nike Air Jordan'"
+            placeholder="Tìm kiếm sản phẩm..."
           />
           <RiSearch2Line className='text-2xl text-neutral-500' />
         </div>

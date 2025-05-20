@@ -221,6 +221,13 @@ const CheckoutPage = async () => {
                 <span>{formatCurrency(totalPrice)}</span>
               </div>
             </div>
+
+            <Image src="/assets/images/payment-qr.jpg" className='my-4' width={500} height={500} alt="payment"/>
+            <p className='mt-2 text-sm italic text-neutral-600'>
+              <strong>Lưu ý:</strong> Nếu bạn chọn phương thức chuyển khoản bằng mã QR,
+              vui lòng ghi rõ nội dung chuyển khoản bao gồm <strong>số điện thoại</strong> và <strong>tên khách hàng</strong>
+              để chúng tôi có thể liên lạc xác nhận đơn hàng với bạn.
+            </p>
             <ButtonPrimary type='submit' className='mt-8 w-full'>
               Xác Nhận Đơn Hàng
             </ButtonPrimary>
