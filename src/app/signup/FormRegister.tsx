@@ -66,7 +66,7 @@ const FormRegister = ({ registerUser }: Props) => {
             min={6}
           />
         </FormItem>
-        <ButtonPrimary disabled={isPending}>Tiếp tục</ButtonPrimary>
+        <ButtonPrimary disabled={isPending}  type="submit">Tiếp tục</ButtonPrimary>
       </div>
       <span className="block text-center text-sm text-neutral-500">
         Bạn đã có tài khoản ?

@@ -1,1 +1,0 @@
-ALTER TABLE `product` ADD `product_attributes` json;

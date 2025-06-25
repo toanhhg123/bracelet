@@ -1,110 +1,12 @@
 {
-  "version": "5",
+  "version": "7",
   "dialect": "mysql",
   "entries": [
     {
       "idx": 0,
       "version": "5",
-      "when": 1740289473602,
-      "tag": "0000_pink_pyro",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "5",
-      "when": 1740303620060,
-      "tag": "0001_stale_micromacro",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "5",
-      "when": 1740303683859,
-      "tag": "0002_pale_felicia_hardy",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "5",
-      "when": 1740303790684,
-      "tag": "0003_heavy_champions",
-      "breakpoints": true
-    },
-    {
-      "idx": 4,
-      "version": "5",
-      "when": 1740303806339,
-      "tag": "0004_bitter_saracen",
-      "breakpoints": true
-    },
-    {
-      "idx": 5,
-      "version": "5",
-      "when": 1740771111293,
-      "tag": "0005_sour_james_howlett",
-      "breakpoints": true
-    },
-    {
-      "idx": 6,
-      "version": "5",
-      "when": 1740771144364,
-      "tag": "0006_red_bloodstorm",
-      "breakpoints": true
-    },
-    {
-      "idx": 7,
-      "version": "5",
-      "when": 1740771164868,
-      "tag": "0007_cool_ghost_rider",
-      "breakpoints": true
-    },
-    {
-      "idx": 8,
-      "version": "5",
-      "when": 1740771249598,
-      "tag": "0008_common_arclight",
-      "breakpoints": true
-    },
-    {
-      "idx": 9,
-      "version": "5",
-      "when": 1740817297685,
-      "tag": "0009_panoramic_tenebrous",
-      "breakpoints": true
-    },
-    {
-      "idx": 10,
-      "version": "5",
-      "when": 1740821843377,
-      "tag": "0010_plain_morph",
-      "breakpoints": true
-    },
-    {
-      "idx": 11,
-      "version": "5",
-      "when": 1740822218228,
-      "tag": "0011_sturdy_xorn",
-      "breakpoints": true
-    },
-    {
-      "idx": 12,
-      "version": "5",
-      "when": 1740822239213,
-      "tag": "0012_narrow_black_knight",
-      "breakpoints": true
-    },
-    {
-      "idx": 13,
-      "version": "5",
-      "when": 1740829351291,
-      "tag": "0013_secret_mephisto",
-      "breakpoints": true
-    },
-    {
-      "idx": 14,
-      "version": "5",
-      "when": 1741232380281,
-      "tag": "0014_sleepy_krista_starr",
+      "when": 1750685286460,
+      "tag": "0000_clumsy_shooting_star",
       "breakpoints": true
     }
   ]

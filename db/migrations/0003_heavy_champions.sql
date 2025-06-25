@@ -1,1 +1,0 @@
-ALTER TABLE `cart` MODIFY COLUMN `user_id` int NOT NULL;

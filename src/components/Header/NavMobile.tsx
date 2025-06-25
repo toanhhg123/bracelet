@@ -13,7 +13,7 @@ const NavMobile: React.FC<NavMobileProps> = ({ onClickClose }) => {
   return (
     <div className="h-screen w-full divide-y divide-neutral-300 overflow-y-auto bg-white py-2 shadow-lg ring-1 transition">
       <div className="px-5 py-2">
-        <Logo className="block" />
+        <Logo  />
         {/* eslint-disable */}
         <span className="absolute right-2 top-2 p-1" onClick={onClickClose}>
           {/* eslint-disable */}

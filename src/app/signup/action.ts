@@ -125,6 +125,9 @@ export const register = async (form: FormData): Promise<SUBMIT_RESPONSE> => {
     .where(eq(users.email, email))
     .limit(1);
 
+  console.log(existingUser);
+
+
   if (existingUser.length > 0) {
     return { type: TOAST_TYPE.ERROR, message: MESSAGES.EMAIL_EXISTS };
   }

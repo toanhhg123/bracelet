@@ -16,7 +16,7 @@ const Footer: React.FC = () => {
       <div className='bg-[#d5a622] text-white'>
         <div className='container grid gap-10 py-16 lg:grid-cols-2 lg:gap-0'>
           <div className='space-y-10 md:pr-20'>
-            <Logo className='block' />
+            <Logo  />
             <p className=''>{footerData.description}</p>
           </div>
 
